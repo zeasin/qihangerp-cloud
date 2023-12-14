@@ -25,13 +25,17 @@ def main(page: ft.Page):
             # content.controls.append(ft.Text("One!"))
             content.controls.append(TodoPage())
         elif e.control.selected_index == 2:
-            content.controls.append(ft.Text("Two!"))
-            # labels = ["Oxygen", "Hydrogen", "Carbon_Dioxide", "Nitrogen"]
-            # values = [4500, 2500, 1053, 500]
-            # fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
+            content.controls.append(ft.Text("商品库!"))
+        elif e.control.selected_index == 3:
             fig = ChartPage().DrawChart()
             # fig.show()
             content.controls.append(PlotlyChart(fig, expand=True))
+        elif e.control.selected_index == 4:
+            content.controls.append(ft.Text("Setting!"))
+            # labels = ["Oxygen", "Hydrogen", "Carbon_Dioxide", "Nitrogen"]
+            # values = [4500, 2500, 1053, 500]
+            # fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
+
         page.update()
 
     rail = ft.NavigationRail(
@@ -44,12 +48,22 @@ def main(page: ft.Page):
         group_alignment=-0.9,
         destinations=[
             ft.NavigationRailDestination(
-                icon=ft.icons.HOME, selected_icon=ft.icons.HOME, label="Home"
+                icon=ft.icons.HOME, selected_icon=ft.icons.HOME, label="首页"
             ),
             ft.NavigationRailDestination(
-                icon_content=ft.Icon(ft.icons.BOOKMARK_BORDER),
-                selected_icon_content=ft.Icon(ft.icons.BOOKMARK),
-                label="Todo",
+                icon_content=ft.Icon(ft.icons.FAVORITE),
+                selected_icon_content=ft.Icon(name=ft.icons.FAVORITE, color=ft.colors.PINK),
+                label="关键词",
+            ),
+            ft.NavigationRailDestination(
+                icon_content=ft.Icon(ft.icons.SHOPIFY),
+                selected_icon_content=ft.Icon(name=ft.icons.SHOPIFY, color=ft.colors.PINK),
+                label="商品库",
+            ),
+            ft.NavigationRailDestination(
+                icon_content=ft.Icon(ft.icons.BAR_CHART),
+                selected_icon_content=ft.Icon(name=ft.icons.BAR_CHART, color=ft.colors.PINK),
+                label="数据分析",
             ),
             ft.NavigationRailDestination(
                 icon=ft.icons.SETTINGS_OUTLINED,
