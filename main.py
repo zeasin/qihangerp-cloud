@@ -1,6 +1,8 @@
 import logging
 
 import flet as ft
+
+from DateEventLogs import DateEventLogsPage
 from Home import HomePage
 from KeyWordCollect import KeyWordCollectPage
 from Todo import TodoPage
@@ -34,7 +36,9 @@ def main(page: ft.Page):
             # fig.show()
             content.controls.append(PlotlyChart(fig, expand=True))
         elif e.control.selected_index == 4:
-            content.controls.append(ft.Text("Setting!"))
+            content.controls.append(ft.Text("事件!"))
+            content.controls.append(DateEventLogsPage())
+            # content.controls.append(ft.Text("Setting!"))
             # labels = ["Oxygen", "Hydrogen", "Carbon_Dioxide", "Nitrogen"]
             # values = [4500, 2500, 1053, 500]
             # fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
@@ -67,6 +71,11 @@ def main(page: ft.Page):
                 icon_content=ft.Icon(ft.icons.BAR_CHART),
                 selected_icon_content=ft.Icon(name=ft.icons.BAR_CHART, color=ft.colors.PINK),
                 label="数据分析",
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.icons.EVENT,
+                selected_icon_content=ft.Icon(ft.icons.EVENT),
+                label_content=ft.Text("事件"),
             ),
             ft.NavigationRailDestination(
                 icon=ft.icons.SETTINGS_OUTLINED,
