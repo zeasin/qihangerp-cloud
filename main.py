@@ -2,6 +2,7 @@ import logging
 
 import flet as ft
 from Home import HomePage
+from KeyWordCollect import KeyWordCollectPage
 from Todo import TodoPage
 # from PlotlyChart import ChartPage
 import plotly.graph_objects as go
@@ -23,9 +24,11 @@ def main(page: ft.Page):
             content.controls.append(HomePage())
         elif e.control.selected_index == 1:
             # content.controls.append(ft.Text("One!"))
-            content.controls.append(TodoPage())
+
+            content.controls.append(KeyWordCollectPage())
         elif e.control.selected_index == 2:
             content.controls.append(ft.Text("商品库!"))
+            content.controls.append(TodoPage())
         elif e.control.selected_index == 3:
             fig = ChartPage().DrawChart()
             # fig.show()
