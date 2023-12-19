@@ -54,20 +54,31 @@ class KeyWordCollectPage(Column):
         # self.add_btn = ft.IconButton(ft.icons.ADD, tooltip="添加", icon_color=ft.colors.BLACK87,
         self.add_btn = ft.FloatingActionButton(icon=ft.icons.ADD, bgcolor=ft.colors.LIME_300, on_click=self.add_clicked)
         # // ft.ElevatedButton("Add", on_click=self.add_clicked)
-        self.list = ft.Column(alignment=ft.alignment.top_left)
+        # self.list = ft.Column(alignment=ft.alignment.top_left)
+        self.list = ft.ListView(expand=1, spacing=5, padding=10, auto_scroll=True)
 
         # 读取数据库数据
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         # 执行查询语句
-        cursor.execute('SELECT id,word,socure,remark,date(create_time) FROM key_word_list')
+        cursor.execute('SELECT id,word,socure,remark,date(create_time) FROM key_word_list order by id desc LIMIT 0,10;')
         results = cursor.fetchall()
         # 遍历结果
         for row in results:
             print(row)
             print(row[1])
             l = row[1]+' - '+row[2] +'['+row[4]+']'
-            self.list.controls.append(ft.Checkbox(label=l))
+            # self.list.controls.append(ft.Checkbox(label=l))
+            # lt = ft.ListTile(
+            #     leading=ft.Icon(ft.icons.SETTINGS),
+            #     title=ft.Text(l),
+            #     selected=True,
+            # ),
+            self.list.controls.append(ft.ListTile(
+                            title=ft.Text(l),
+                        ))
+            # self.list.update()
+            # self.page.update()
         # 关闭连接
         cursor.close()
         conn.close()
@@ -78,6 +89,8 @@ class KeyWordCollectPage(Column):
 
         content = ft.Column([
             ft.Row(controls=[self.dd,self.new_task, self.add_btn]),
-            self.list
+            ft.Container(self.list)
+
         ])
         self.controls.append(content)
+

@@ -29,7 +29,7 @@ def main(page: ft.Page):
 
             content.controls.append(KeyWordCollectPage())
         elif e.control.selected_index == 2:
-            content.controls.append(ft.Text("商品库!"))
+            content.controls.append(ft.Text("推荐商品"))
             content.controls.append(TodoPage())
         elif e.control.selected_index == 3:
             fig = ChartPage().DrawChart()
@@ -65,7 +65,7 @@ def main(page: ft.Page):
             ft.NavigationRailDestination(
                 icon_content=ft.Icon(ft.icons.SHOPIFY),
                 selected_icon_content=ft.Icon(name=ft.icons.SHOPIFY, color=ft.colors.PINK),
-                label="商品库",
+                label="推荐商品",
             ),
             ft.NavigationRailDestination(
                 icon_content=ft.Icon(ft.icons.BAR_CHART),
