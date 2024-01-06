@@ -1,7 +1,8 @@
 import requests
 from lxml import etree
 
-url = f'https://tophub.today/n/yjvQDpjobg'
+# url = f'https://tophub.today/n/yjvQDpjobg'
+url = f'https://pifa.pinduoduo.com/'
 # * *请求**header
 
 header = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -21,34 +22,37 @@ header = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/5
                     'Hm_lpvt_de3f6fd28ec4ac19170f18e2a8777593=1686360427'}
 
 response = requests.get(url, headers=header)
-
+print(response.text)
 html = etree.HTML(response.text)  # 将爬取到的网页信息使用HTML类进行初始化，目的是为了构造一个XPath解析对象
+word = html.xpath('//div[@class="hotword-container"]/a/text()')
 
-tables = html.xpath('//table')
-
-# trs = tables[0].xpath("//tr//td/text()")
-trs = tables[0].xpath(".//tr")
-# print(trs)
-# trs = tables[0].xpath("./tr")
-i = 0
-for item in trs:
-    i = i + 1
-    tds = item.xpath("./td")
-    index = tds[0].text
-    img = tds[1].xpath("./img/@src")
-    href = tds[2].xpath("./a/@href")
-    title = tds[2].xpath("./a/text()")
-    remark = tds[3].text
-    print(index)
-    print(img[0])
-    print(href[0])
-    print(title[0])
-    print(remark)
-    # print(tds)
-    # for it in tds:
-    #     print(it.text)
-    print('---------------------')
-    print(i)
-    # for it in tds:
-    #     print(it.text)
-# print(trs)
+for item in word:
+    print(item)
+# tables = html.xpath('//table')
+#
+# # trs = tables[0].xpath("//tr//td/text()")
+# trs = tables[0].xpath(".//tr")
+# # print(trs)
+# # trs = tables[0].xpath("./tr")
+# i = 0
+# for item in trs:
+#     i = i + 1
+#     tds = item.xpath("./td")
+#     index = tds[0].text
+#     img = tds[1].xpath("./img/@src")
+#     href = tds[2].xpath("./a/@href")
+#     title = tds[2].xpath("./a/text()")
+#     remark = tds[3].text
+#     print(index)
+#     print(img[0])
+#     print(href[0])
+#     print(title[0])
+#     print(remark)
+#     # print(tds)
+#     # for it in tds:
+#     #     print(it.text)
+#     print('---------------------')
+#     print(i)
+#     # for it in tds:
+#     #     print(it.text)
+# # print(trs)
