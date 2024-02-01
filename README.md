@@ -30,7 +30,15 @@
 ## 三、项目结构
 + `api`：后端api接口项目，端口8080
 + `service`：公共service接口项目
-+ `service-sys`：系统相关service
++ `service-sys`：系统相关dubbo service，包括用户、权限、菜单等
++ `service-goods`：商品相关dubbo service
++ `service-shop`：店铺相关dubbo service
++ `service-sale`：销售相关dubbo service
++ `service-tao`：淘宝接口相关dubbo service
++ `service-pdd`：拼多多接口相关dubbo service
++ `service-dou`：抖店接口相关dubbo service
+
+
 
 ## 欢迎交流
 
