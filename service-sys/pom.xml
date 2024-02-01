@@ -8,7 +8,7 @@
     </parent>
 
     <groupId>tech.qihangec.erp</groupId>
-    <artifactId>service-user</artifactId>
+    <artifactId>service-sys</artifactId>
     <packaging>jar</packaging>
 
     <name>service-user</name>

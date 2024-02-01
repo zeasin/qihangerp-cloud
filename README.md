@@ -27,7 +27,10 @@
 + element-plus
 + ts
 
-
+## 三、项目结构
++ `api`：后端api接口项目，端口8080
++ `service`：公共service接口项目
++ `service-sys`：系统相关service
 
 ## 欢迎交流
 

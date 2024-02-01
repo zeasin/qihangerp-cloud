@@ -11,9 +11,8 @@
   <url>http://maven.apache.org</url>
   <modules>
     <module>api</module>
-      <module>erp-goods</module>
       <module>service</module>
-      <module>service-user</module>
+      <module>service-sys</module>
   </modules>
 
   <properties>

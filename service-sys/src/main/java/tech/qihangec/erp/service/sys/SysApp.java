@@ -1,20 +1,17 @@
-package tech.qihangec.erp.user;
+package tech.qihangec.erp.service.sys;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * Hello world!
- *
- */
+
 @EnableDubbo
 @SpringBootApplication
-public class App 
+public class SysApp
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
-        SpringApplication.run(App.class, args);
+        System.out.println( "Hello SYS!" );
+        SpringApplication.run(SysApp.class, args);
     }
 }

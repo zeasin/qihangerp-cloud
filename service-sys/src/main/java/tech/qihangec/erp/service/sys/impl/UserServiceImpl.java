@@ -1,4 +1,4 @@
-package tech.qihangec.erp.user.serviceImpl;
+package tech.qihangec.erp.service.sys.impl;
 
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.stereotype.Service;
