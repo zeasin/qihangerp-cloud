@@ -28,6 +28,7 @@
 + ts
 
 ## 三、项目结构
++ `vue3`：前端web项目，端口3000，采用vue3+ts+element-plus开发
 + `api`：后端api接口项目，端口8080
 + `service`：公共service接口项目
 + `service-sys`：系统相关dubbo service，包括用户、权限、菜单等
