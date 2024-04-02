@@ -1,13 +1,8 @@
-﻿# 启航电商OMS系统
+﻿# 启航视频号电商系统
 
 ## 一、项目概述
 
-启航电商OMS系统是一套为中小电商企业构建的一套简单实用的电商系统，本项目采用前后端分离方式，后端采用Java SpringBoot Duboo微服务架构开发，前端采用Vue3+ts开发。
-
-启航电商OMS系支持是自有仓库发货和供应商一件代发两种发货方式。主体功能包括：供应商管理、网店商品管理（库存同步）、网店订单管理、订单发货（仓库发货、供应商发货）等，基本上覆盖了电商网店管理日常业务，适合轻量级管理。
-
-
-支持几乎所有流行第三方电商平台订单、售后、发货等接口对接，包括：淘宝、京东、拼多多、抖店、快手小店、小红书等。
+启航视频号电商系统是一套为专为微信视频号小店开发的一套电商业务系统，支持多店铺管理，主要功能：采购管理、店铺订单同步、发货管理、售后管理、商品管理、仓库出入库管理等，基本覆盖视频号小店电商业务处理完整流程，本系统后端采用Dubbo微服务架构，前端采用Vue2+Element开发。
 
 
 ## 二、技术框架
@@ -24,21 +19,8 @@
 + Minio
 
 ### 2.3 前端
-+ vue3
-+ element-plus
-+ ts
-
-## 三、项目结构
-+ `vue3`：前端web项目，端口3000，采用vue3+ts+element-plus开发
-+ `api`：后端api接口项目，端口8080
-+ `service`：公共service接口项目
-+ `service-sys`：系统相关dubbo service，包括用户、权限、菜单等
-+ `service-goods`：商品相关dubbo service
-+ `service-shop`：店铺相关dubbo service
-+ `service-sale`：销售相关dubbo service
-+ `service-tao`：淘宝接口相关dubbo service
-+ `service-pdd`：拼多多接口相关dubbo service
-+ `service-dou`：抖店接口相关dubbo service
++ vue2
++ element
 
 
 
