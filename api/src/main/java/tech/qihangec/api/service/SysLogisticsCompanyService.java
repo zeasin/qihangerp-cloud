@@ -1,7 +1,7 @@
 package tech.qihangec.api.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import tech.qihangec.api.PageQuery;
+import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.PageResult;
 import tech.qihangec.api.domain.SysLogisticsCompany;
 

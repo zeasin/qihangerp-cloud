@@ -1,6 +1,6 @@
 package tech.qihangec.api.service;
 
-import tech.qihangec.api.PageQuery;
+import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.PageResult;
 import tech.qihangec.api.domain.ErpOrder;
 import com.baomidou.mybatisplus.extension.service.IService;

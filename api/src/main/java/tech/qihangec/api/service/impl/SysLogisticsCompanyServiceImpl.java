@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tech.qihangec.api.PageQuery;
+import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.PageResult;
 import tech.qihangec.api.domain.SysLogisticsCompany;
 import tech.qihangec.api.mapper.SysLogisticsCompanyMapper;

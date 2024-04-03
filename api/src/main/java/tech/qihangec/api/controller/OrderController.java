@@ -5,7 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tech.qihangec.api.PageQuery;
+import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.BaseController;
 import tech.qihangec.api.common.TableDataInfo;
 import tech.qihangec.api.domain.ErpOrder;

@@ -67,6 +67,14 @@ public class SysShopServiceImpl extends ServiceImpl<SysShopMapper, SysShop>
     public int updateShopPlatformById(SysPlatform platform) {
         return platformMapper.updateById(platform);
     }
+
+    @Override
+    public void updateSessionKey(Integer shopId, String sessionKey) {
+        SysShop shop = new SysShop();
+        shop.setId(shopId);
+        shop.setAccessToken(sessionKey);
+        mapper.updateById(shop);
+    }
 }
 
 

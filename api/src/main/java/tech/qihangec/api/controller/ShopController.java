@@ -3,7 +3,7 @@ package tech.qihangec.api.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import tech.qihangec.api.PageQuery;
+import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.AjaxResult;
 import tech.qihangec.api.common.BaseController;
 import tech.qihangec.api.common.PageResult;

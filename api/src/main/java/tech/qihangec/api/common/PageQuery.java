@@ -1,4 +1,4 @@
-package tech.qihangec.api;
+package tech.qihangec.api.common;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

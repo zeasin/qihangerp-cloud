@@ -22,4 +22,6 @@ public interface SysShopService extends IService<SysShop> {
     List<SysPlatform> selectShopPlatformList();
     SysPlatform selectShopPlatformById(Long id);
     int updateShopPlatformById(SysPlatform platform);
+
+    void updateSessionKey(Integer shopId,String sessionKey);
 }
