@@ -1,12 +1,17 @@
 package tech.qihangec.api.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.util.StringUtils;
+import tech.qihangec.api.common.PageQuery;
+import tech.qihangec.api.common.PageResult;
 import tech.qihangec.api.common.ResultVoEnum;
-import tech.qihangec.api.common.utils.StringUtils;
 import tech.qihangec.api.domain.WeiGoods;
 import tech.qihangec.api.domain.WeiGoodsSku;
+import tech.qihangec.api.domain.WeiOrder;
+import tech.qihangec.api.domain.WeiOrderItem;
 import tech.qihangec.api.mapper.WeiGoodsSkuMapper;
 import tech.qihangec.api.service.WeiGoodsService;
 import tech.qihangec.api.mapper.WeiGoodsMapper;
@@ -26,6 +31,17 @@ public class WeiGoodsServiceImpl extends ServiceImpl<WeiGoodsMapper, WeiGoods>
     private final WeiGoodsMapper mapper;
     private final WeiGoodsSkuMapper skuMapper;
 //    private final OGoodsSkuMapper goodsSkuMapper;
+
+    @Override
+    public PageResult<WeiGoods> queryPageList(WeiGoods bo, PageQuery pageQuery) {
+        LambdaQueryWrapper<WeiGoods> queryWrapper = new LambdaQueryWrapper<WeiGoods>()
+                .eq(bo.getShopId()!=null,WeiGoods::getShopId,bo.getShopId())
+                ;
+
+        Page<WeiGoods> taoGoodsPage = mapper.selectPage(pageQuery.build(), queryWrapper);
+
+        return PageResult.build(taoGoodsPage);
+    }
 
     @Override
     public int saveAndUpdateGoods(Integer shopId, WeiGoods goods) {

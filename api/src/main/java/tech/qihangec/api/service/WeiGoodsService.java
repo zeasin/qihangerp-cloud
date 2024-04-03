@@ -1,7 +1,10 @@
 package tech.qihangec.api.service;
 
+import tech.qihangec.api.common.PageQuery;
+import tech.qihangec.api.common.PageResult;
 import tech.qihangec.api.domain.WeiGoods;
 import com.baomidou.mybatisplus.extension.service.IService;
+import tech.qihangec.api.domain.WeiOrder;
 
 /**
 * @author qilip
@@ -9,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-04-03 21:36:32
 */
 public interface WeiGoodsService extends IService<WeiGoods> {
+    PageResult<WeiGoods> queryPageList(WeiGoods bo, PageQuery pageQuery);
     int saveAndUpdateGoods(Integer shopId,WeiGoods goods);
 }
