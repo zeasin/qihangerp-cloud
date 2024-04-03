@@ -7,10 +7,14 @@ import tech.qihangec.api.common.constant.UserConstants;
 import tech.qihangec.api.common.security.SecurityUtils;
 import tech.qihangec.api.common.utils.StringUtils;
 import tech.qihangec.api.domain.SysMenu;
+import tech.qihangec.api.domain.SysRole;
 import tech.qihangec.api.domain.SysUser;
 import tech.qihangec.api.domain.vo.MetaVo;
 import tech.qihangec.api.domain.vo.RouterVo;
+import tech.qihangec.api.domain.vo.TreeSelect;
 import tech.qihangec.api.mapper.SysMenuMapper;
+import tech.qihangec.api.mapper.SysRoleMapper;
+import tech.qihangec.api.mapper.SysRoleMenuMapper;
 import tech.qihangec.api.service.ISysMenuService;
 
 import java.util.*;
@@ -28,6 +32,10 @@ public class SysMenuServiceImpl implements ISysMenuService
 
     @Autowired
     private SysMenuMapper menuMapper;
+    @Autowired
+    private SysRoleMapper roleMapper;
+    @Autowired
+    private SysRoleMenuMapper roleMenuMapper;
 
 
     /**
@@ -136,12 +144,12 @@ public class SysMenuServiceImpl implements ISysMenuService
      * @param roleId 角色ID
      * @return 选中菜单列表
      */
-//    @Override
-//    public List<Long> selectMenuListByRoleId(Long roleId)
-//    {
-//        SysRole role = roleMapper.selectRoleById(roleId);
-//        return menuMapper.selectMenuListByRoleId(roleId, role.isMenuCheckStrictly());
-//    }
+    @Override
+    public List<Long> selectMenuListByRoleId(Long roleId)
+    {
+        SysRole role = roleMapper.selectRoleById(roleId);
+        return menuMapper.selectMenuListByRoleId(roleId, role.isMenuCheckStrictly());
+    }
 
     /**
      * 构建前端路由所需要的菜单
@@ -235,12 +243,12 @@ public class SysMenuServiceImpl implements ISysMenuService
      * @param menus 菜单列表
      * @return 下拉树结构列表
      */
-//    @Override
-//    public List<TreeSelect> buildMenuTreeSelect(List<SysMenu> menus)
-//    {
-//        List<SysMenu> menuTrees = buildMenuTree(menus);
-//        return menuTrees.stream().map(TreeSelect::new).collect(Collectors.toList());
-//    }
+    @Override
+    public List<TreeSelect> buildMenuTreeSelect(List<SysMenu> menus)
+    {
+        List<SysMenu> menuTrees = buildMenuTree(menus);
+        return menuTrees.stream().map(TreeSelect::new).collect(Collectors.toList());
+    }
 
     /**
      * 根据菜单ID查询信息
@@ -273,12 +281,12 @@ public class SysMenuServiceImpl implements ISysMenuService
      * @param menuId 菜单ID
      * @return 结果
      */
-//    @Override
-//    public boolean checkMenuExistRole(Long menuId)
-//    {
-//        int result = roleMenuMapper.checkMenuExistRole(menuId);
-//        return result > 0;
-//    }
+    @Override
+    public boolean checkMenuExistRole(Long menuId)
+    {
+        int result = roleMenuMapper.checkMenuExistRole(menuId);
+        return result > 0;
+    }
 
     /**
      * 新增保存菜单信息

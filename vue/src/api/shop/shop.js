@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询店铺列表
 export function listShop(query) {
   return request({
-    url: '/api/oms-api/shop/list',
+    url: '/shop/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listShop(query) {
 // 查询店铺详细
 export function getShop(id) {
   return request({
-    url: '/api/oms-api/shop/shop/' + id,
+    url: '/shop/shop/' + id,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getShop(id) {
 // 新增店铺
 export function addShop(data) {
   return request({
-    url: '/api/oms-api/shop/shop',
+    url: '/shop/shop',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addShop(data) {
 // 修改店铺
 export function updateShop(data) {
   return request({
-    url: '/api/oms-api/shop/shop',
+    url: '/shop/shop',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateShop(data) {
 // 删除店铺
 export function delShop(id) {
   return request({
-    url: '/api/oms-api/shop/shop/' + id,
+    url: '/shop/shop/' + id,
     method: 'delete'
   })
 }
@@ -46,7 +46,7 @@ export function delShop(id) {
 // 查询店铺平台列表
 export function listPlatform(query) {
   return request({
-    url: '/api/oms-api/shop/platformList',
+    url: '/shop/platformList',
     method: 'get',
     params: query
   })
@@ -55,7 +55,7 @@ export function listPlatform(query) {
 // 查询店铺详细
 export function getPlatform(id) {
   return request({
-    url: '/api/oms-api/shop/platform/' + id,
+    url: '/shop/platform/' + id,
     method: 'get'
   })
 }
@@ -63,7 +63,7 @@ export function getPlatform(id) {
 // 修改店铺
 export function updatePlatform(data) {
   return request({
-    url: '/api/oms-api/shop/platform',
+    url: '/shop/platform',
     method: 'put',
     data: data
   })
@@ -71,7 +71,7 @@ export function updatePlatform(data) {
 
 export function listLogistics(query) {
   return request({
-    url: '/api/oms-api/shop/logistics',
+    url: '/shop/logistics',
     method: 'get',
     params: query
   })
@@ -79,7 +79,7 @@ export function listLogistics(query) {
 
 export function listShopPullLogs(query) {
   return request({
-    url: '/api/oms-api/shop/pull_logs_list',
+    url: '/shop/pull_logs_list',
     method: 'get',
     params: query
   })

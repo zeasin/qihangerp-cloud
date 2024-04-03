@@ -16,7 +16,7 @@ import java.util.Set;
 public class SysPermissionService
 {
     @Autowired
-    private SysRoleService roleService;
+    private ISysRoleService roleService;
 
     @Autowired
     private ISysMenuService menuService;

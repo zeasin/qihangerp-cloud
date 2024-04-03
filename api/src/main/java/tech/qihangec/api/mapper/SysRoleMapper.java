@@ -14,6 +14,15 @@ import java.util.List;
 */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
     List<SysRole> selectRolePermissionByUserId(Long userId);
+    SysRole selectRoleById(Long roleId);
+    List<SysRole> selectRoleList(SysRole role);
+    List<Long> selectRoleListByUserId(Long userId);
+    SysRole checkRoleNameUnique(String roleName);
+    SysRole checkRoleKeyUnique(String roleKey);
+    int insertRole(SysRole role);
+    int updateRole(SysRole role);
+    int deleteRoleById(Long roleId);
+    int deleteRoleByIds(Long[] roleIds);
 }
 
 

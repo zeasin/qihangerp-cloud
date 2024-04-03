@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  * 自定义退出处理类 返回成功
- * 
+ *
  * @author qihang
  */
 @Configuration
@@ -27,7 +27,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler
 
     /**
      * 退出处理
-     * 
+     *
      * @return
      */
     @Override

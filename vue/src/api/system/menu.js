@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询菜单列表
 export function listMenu(query) {
   return request({
-    url: '/api/sys-api/system/menu/list',
+    url: '/system/menu/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listMenu(query) {
 // 查询菜单详细
 export function getMenu(menuId) {
   return request({
-    url: '/api/sys-api/system/menu/' + menuId,
+    url: '/system/menu/' + menuId,
     method: 'get'
   })
 }
@@ -36,7 +36,7 @@ export function roleMenuTreeselect(roleId) {
 // 新增菜单
 export function addMenu(data) {
   return request({
-    url: '/api/sys-api/system/menu',
+    url: '/system/menu',
     method: 'post',
     data: data
   })
@@ -45,7 +45,7 @@ export function addMenu(data) {
 // 修改菜单
 export function updateMenu(data) {
   return request({
-    url: '/api/sys-api/system/menu',
+    url: '/system/menu',
     method: 'put',
     data: data
   })
