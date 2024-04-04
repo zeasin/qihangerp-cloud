@@ -10,7 +10,7 @@ public class SysLogisticsCompany implements Serializable {
     /**
      * 主键ID
      */
-    private Long id;
+    private String id;
 
     /**
      * 平台id
@@ -41,20 +41,29 @@ public class SysLogisticsCompany implements Serializable {
      * 备注
      */
     private String remark;
+    private Integer status;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * 主键ID
      */
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

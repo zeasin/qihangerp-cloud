@@ -69,18 +69,3 @@ export function updatePlatform(data) {
   })
 }
 
-export function listLogistics(query) {
-  return request({
-    url: '/shop/logistics',
-    method: 'get',
-    params: query
-  })
-}
-
-export function listShopPullLogs(query) {
-  return request({
-    url: '/shop/pull_logs_list',
-    method: 'get',
-    params: query
-  })
-}

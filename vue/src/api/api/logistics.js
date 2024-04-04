@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询物流公司列表
 export function listLogistics(query) {
   return request({
-    url: '/api/logistics/list',
+    url: '/shipping/logistics/list',
     method: 'get',
     params: query
   })
@@ -20,7 +20,7 @@ export function getLogistics(id) {
 // 新增物流公司
 export function addLogistics(data) {
   return request({
-    url: '/api/logistics',
+    url: '/shipping/logistics/add',
     method: 'post',
     data: data
   })
@@ -40,5 +40,13 @@ export function delLogistics(id) {
   return request({
     url: '/api/logistics/' + id,
     method: 'delete'
+  })
+}
+
+export function listLogisticsStatus(query) {
+  return request({
+    url: '/shipping/logistics/status_list',
+    method: 'get',
+    params: query
   })
 }

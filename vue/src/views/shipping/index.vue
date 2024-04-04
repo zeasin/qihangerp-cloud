@@ -161,6 +161,7 @@
 import {listShop} from "@/api/shop/shop";
 import {MessageBox} from "element-ui";
 import {handShip, listShipping} from "@/api/api/shipping";
+import {listLogisticsStatus} from "@/api/api/logistics";
 
 export default {
   name: "Shop",
@@ -210,6 +211,9 @@ export default {
   created() {
     listShop({}).then(response => {
       this.shopList = response.rows;
+    });
+    listLogisticsStatus({status:1}).then(response => {
+      this.logisticsList = response.rows;
     });
     this.getList();
   },

@@ -1,25 +1,14 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-<!--      <el-form-item label="店铺名" prop="name">-->
-<!--        <el-input-->
-<!--          v-model="queryParams.name"-->
-<!--          placeholder="请输入店铺名"-->
-<!--          clearable-->
-<!--          @keyup.enter.native="handleQuery"-->
-<!--        />-->
-<!--      </el-form-item>-->
-      <el-form-item label="平台" prop="type">
-        <el-select v-model="queryParams.id" placeholder="请选择平台" clearable>
-          <el-option
-            v-for="item in typeList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id">
-          </el-option>
-        </el-select>
+      <el-form-item label="快递公司" prop="company">
+        <el-input
+          v-model="queryParams.company"
+          placeholder="请输入快递公司"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
       </el-form-item>
-
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -29,12 +18,12 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          type="danger"
+          type="primary"
           plain
           icon="el-icon-download"
           size="mini"
-          @click="handlePull"
-        >API拉取快递公司数据</el-button>
+          @click="handleAdd"
+        >添加</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -79,14 +68,37 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
     />
-
+    <!-- 对话框 -->
+    <el-dialog title="添加快递公司" :visible.sync="open" width="500px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="快递公司" prop="name">
+          <el-input v-model="form.name" placeholder="请输入快递公司" />
+        </el-form-item>
+        <el-form-item label="快递编码" prop="name">
+          <el-input v-model="form.code" placeholder="请输入快递编码" />
+        </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-select v-model="form.status" placeholder="请选择状态" clearable @change="handleQuery">
+            <el-option label="启用" value="1"></el-option>
+            <el-option label="禁用" value="0"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="备注" prop="remark">
+          <el-input v-model="form.remark" placeholder="备注" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import {listLogistics} from "@/api/shop/shop";
 import {MessageBox} from "element-ui";
 import {isRelogin} from "@/utils/request";
+import {addLogistics, listLogistics} from "@/api/api/logistics";
 
 export default {
   name: "Shop",
@@ -104,19 +116,9 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 店铺表格数据
       dataList:[],
-      typeList: [
-        {name:"天猫", id:"1"},
-        {name:"京东", id:"2"},
-        {name:"抖店", id:"3"},
-        {name:"拼多多", id:"4"},
-      ],
-      // 弹出层标题
-      title: "",
       // 是否显示弹出层
       open: false,
-      apiOpen: false,
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -132,8 +134,7 @@ export default {
       rules: {
         name: [{ required: true, message: "不能为空", trigger: "blur" }],
         code: [{ required: true, message: "不能为空", trigger: "blur" }],
-        appKey: [{ required: true, message: "不能为空", trigger: "blur" }],
-        appSecret: [{ required: true, message: "不能为空", trigger: "blur" }],
+        status: [{ required: true, message: "不能为空", trigger: "blur" }]
       }
     };
   },
@@ -170,6 +171,25 @@ export default {
     resetQuery() {
       this.resetForm("queryForm");
       this.handleQuery();
+    },
+    handleAdd() {
+        this.open=true
+    },
+    cancel(){
+      this.open=false
+    },
+    /** 提交按钮 */
+    submitForm() {
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          addLogistics(this.form).then(response => {
+            this.$modal.msgSuccess("添加成功");
+            this.open = false;
+            this.getList();
+          });
+
+        }
+      });
     },
   }
 };

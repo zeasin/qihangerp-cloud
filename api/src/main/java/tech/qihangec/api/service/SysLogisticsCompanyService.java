@@ -5,6 +5,8 @@ import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.PageResult;
 import tech.qihangec.api.domain.SysLogisticsCompany;
 
+import java.util.List;
+
 
 /**
 * @author TW
@@ -13,4 +15,6 @@ import tech.qihangec.api.domain.SysLogisticsCompany;
 */
 public interface SysLogisticsCompanyService extends IService<SysLogisticsCompany> {
     PageResult<SysLogisticsCompany> queryPageList(Integer platform, Integer shopId, PageQuery pageQuery);
+    List<SysLogisticsCompany> queryListByStatus(Integer status, Integer shopId);
+    int updateStatus(String id,Integer status);
 }
