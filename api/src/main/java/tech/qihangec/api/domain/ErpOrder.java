@@ -17,7 +17,7 @@ public class ErpOrder implements Serializable {
     /**
      * 订单id，自增
      */
-    private Long id;
+    private String id;
 
     /**
      * 订单编号（第三方平台订单号）

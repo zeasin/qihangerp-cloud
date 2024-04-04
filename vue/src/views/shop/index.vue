@@ -71,7 +71,8 @@
           <el-tag >{{typeList.find(x=>x.id === scope.row.type).name}}</el-tag>
         </template>
       </el-table-column>
-       <el-table-column label="店铺ID" align="center" prop="sellerId" />
+       <el-table-column label="appKey" align="center" prop="appKey" />
+       <el-table-column label="appSercet" align="center" prop="appSercet" />
        <el-table-column label="accessToken" align="center" prop="accessToken" />
       <el-table-column label="描述" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -123,23 +124,30 @@
 
     <!-- 添加或修改店铺对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="店铺名" prop="name">
           <el-input v-model="form.name" placeholder="请输入店铺名" />
         </el-form-item>
-        <el-form-item label="平台" prop="type">
-          <el-select v-model="form.type" placeholder="请选择平台">
-           <el-option
-              v-for="item in typeList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id">
-            </el-option>
-          </el-select>
+<!--        <el-form-item label="平台" prop="type">-->
+<!--          <el-select v-model="form.type" placeholder="请选择平台">-->
+<!--           <el-option-->
+<!--              v-for="item in typeList"-->
+<!--              :key="item.id"-->
+<!--              :label="item.name"-->
+<!--              :value="item.id">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
+        <el-form-item label="appId" prop="appKey">
+          <el-input v-model="form.appKey" placeholder="请输入appId" />
         </el-form-item>
-        <el-form-item label="卖家Id" prop="sellerId">
-          <el-input v-model="form.sellerId" placeholder="请输入卖家Id名" />
+        <el-form-item label="appSercet" prop="appSercet">
+          <el-input v-model="form.appSercet" placeholder="请输入appSercet" />
         </el-form-item>
+
+<!--        <el-form-item label="卖家Id" prop="sellerId">-->
+<!--          <el-input v-model="form.sellerId" placeholder="请输入卖家Id名" />-->
+<!--        </el-form-item>-->
 
         <el-form-item label="描述" prop="remark">
           <el-input type="textarea" v-model="form.remark" placeholder="请输入描述" />
@@ -196,8 +204,8 @@ export default {
       // 表单校验
       rules: {
         name: [{ required: true, message: "店铺名不能为空", trigger: "blur" }],
-        type: [{ required: true, message: "请选择平台", trigger: "change" }],
-        sellerId: [{ required: true, message: "不能为空", trigger: "change" }],
+        appKey: [{ required: true, message: "不能为空", trigger: "change" }],
+        appSercet: [{ required: true, message: "不能为空", trigger: "change" }],
       }
     };
   },

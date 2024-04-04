@@ -56,8 +56,12 @@ public class ApiCommon {
 //            String s = "/token?grant_type=client_credential&appid="+params.getAppKey()+"&secret="+params.getAppSecret();
             TokenApiService remoting = RemoteUtil.Remoting(params.getServerUrl(), TokenApiService.class);
             Token token = remoting.getToken("client_credential",params.getAppKey(),params.getAppSecret());
-            params.setAccessToken(token.getAccess_token());
-            shopService.updateSessionKey(shopId,token.getAccess_token());
+            if(token.getErrcode()==null) {
+                params.setAccessToken(token.getAccess_token());
+                shopService.updateSessionKey(shopId, token.getAccess_token());
+            }else{
+                return ResultVo.error(HttpStatus.PARAMS_ERROR, token.getErrmsg());
+            }
         }else {
             // 调用 店铺基本信息接口 验证Token
             ShopInfoApiService remoting = RemoteUtil.Remoting(params.getServerUrl(), ShopInfoApiService.class);

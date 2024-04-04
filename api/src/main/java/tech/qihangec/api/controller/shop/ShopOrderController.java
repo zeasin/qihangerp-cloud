@@ -1,13 +1,9 @@
 package tech.qihangec.api.controller.shop;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import tech.qihangec.api.common.BaseController;
-import tech.qihangec.api.common.PageQuery;
-import tech.qihangec.api.common.PageResult;
-import tech.qihangec.api.common.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+import tech.qihangec.api.common.*;
+import tech.qihangec.api.common.bo.ShopOrderConfirmBo;
 import tech.qihangec.api.domain.WeiOrder;
 import tech.qihangec.api.service.WeiOrderService;
 
@@ -21,5 +17,17 @@ public class ShopOrderController extends BaseController {
         PageResult<WeiOrder> result = orderService.queryPageList(bo, pageQuery);
 
         return getDataTable(result);
+    }
+
+    @PostMapping("/confirm")
+    @ResponseBody
+    public AjaxResult orderConfirm(@RequestBody ShopOrderConfirmBo bo) {
+        if(bo!=null && bo.getIds()!=null) {
+            ResultVo<Integer> resultVo = orderService.orderConfirm(bo.getIds());
+
+            return success(resultVo.getData());
+        }else{
+            return AjaxResult.error("没有选择任何订单！");
+        }
     }
 }

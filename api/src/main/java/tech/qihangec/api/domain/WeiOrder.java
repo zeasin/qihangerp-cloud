@@ -1,6 +1,7 @@
 package tech.qihangec.api.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -15,7 +16,7 @@ public class WeiOrder implements Serializable {
     /**
      * 
      */
-    private Long id;
+    private String id;
 
     /**
      * 店铺id
@@ -163,6 +164,11 @@ public class WeiOrder implements Serializable {
      * 结算信息json
      */
     private String settleInfo;
+
+    private Integer confirmStatus;
+    private Date confirmTime;
+    private Integer erpSendStatus;
+    private Date erpSendTime;
 
     @TableField(exist = false)
     private List<WeiOrderItem> items;

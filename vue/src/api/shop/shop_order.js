@@ -21,15 +21,15 @@ export function getOrder(id) {
 // 接口拉取淘宝订单
 export function pullOrder(data) {
   return request({
-    url: '/api/tao-api/order/pull_order_tao',
+    url: '/shop/order/pull_list',
     method: 'post',
     data: data
   })
 }
 
-export function pushOms(data) {
+export function orderConfirm(data) {
   return request({
-    url: '/api/tao-api/order/push_oms',
+    url: '/shop/order/confirm',
     method: 'post',
     data: data
   })

@@ -17,7 +17,7 @@ public class WeiOrderItem implements Serializable {
     /**
      * 外键id
      */
-    private Long weiOrderId;
+    private String weiOrderId;
 
     /**
      * 商品spuid

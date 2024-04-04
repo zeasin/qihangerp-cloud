@@ -61,16 +61,16 @@
           icon="el-icon-refresh"
           size="mini"
           :disabled="multiple"
-          @click="handlePushOms"
-        >手动将选中订单推送到OMS</el-button>
+          @click="handleConfirm"
+        >批量确认订单</el-button>
       </el-col>
 
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="orderList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="订单号" align="center" prop="tid" />
+    <el-table v-loading="loading" :data="orderList" @selection-change="handleSelectionChange" >
+      <el-table-column type="selection" width="55" align="center" :selectable="isRowSelectable" />
+      <el-table-column label="订单号" align="center" prop="orderId" />
       <el-table-column label="店铺" align="center" prop="shopId" >
         <template slot-scope="scope">
           <span>{{ shopList.find(x=>x.id === scope.row.shopId).name  }}</span>
@@ -81,30 +81,47 @@
             <el-row v-for="item in scope.row.items" :key="item.id" :gutter="20">
 
             <div style="float: left;display: flex;align-items: center;" >
-              <el-image  style="width: 70px; height: 70px;" :src="item.picPath"></el-image>
+              <el-image  style="width: 70px; height: 70px;" :src="item.thumbImg"></el-image>
               <div style="margin-left:10px">
               <p>{{item.title}}</p>
-              <p>{{item.skuPropertiesName}}&nbsp;
-                <el-tag size="small">x {{item.num}}</el-tag>
-                </p>
-                <p v-if="scope.row.refundStatus === 0">
-                  <el-button type="text" size="mini" round @click="handleRefund(scope.row,item)">售后</el-button>
+              <p>{{item.skuAttrs}}&nbsp;</p>
+                <p>
+                <el-tag size="small">数量： {{item.skuCnt}}</el-tag>
                 </p>
               </div>
             </div>
             </el-row>
           </template>
       </el-table-column>
-      <el-table-column label="总金额" align="center" prop="payment" />
-      <el-table-column label="订单创建时间" align="center" prop="orderCreateTime" width="180">
+      <el-table-column label="订单金额" align="center" prop="orderPrice" >
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.created, '{y}-{m}-{d} {h}:{m}:{s}') }}</span>
+          <span>{{ scope.row.orderPrice/100 }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="买家留言" align="center" prop="buyerMessage" />
-      <el-table-column label="卖家备注" align="center" prop="sellerMemo" />
-      <el-table-column label="订单状态" align="center" prop="status" />
-      <el-table-column label="快递单号" align="center" prop="logisticsCode" />
+      <el-table-column label="订单创建时间" align="center" prop="createTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{m}:{s}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="收件人" align="center" prop="userName" />
+      <el-table-column label="省市区" align="center" >
+        <template slot-scope="scope">
+        <el-tag size="small">{{scope.row.provinceName}}</el-tag>
+        <el-tag size="small">{{scope.row.cityName}}</el-tag>
+        <el-tag size="small">{{scope.row.countyName}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="订单状态" align="center" prop="status" >
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status === 10 " size="small">待付款</el-tag>
+          <el-tag v-if="scope.row.status === 20 " size="small">待发货</el-tag>
+          <el-tag v-if="scope.row.status === 30 " size="small">待收货</el-tag>
+          <el-tag v-if="scope.row.status === 100 " size="small">完成</el-tag>
+          <br/>
+          <el-tag style="margin-top: 5px" type="warning" v-if="scope.row.confirmStatus === 0 " size="small">待确认</el-tag>
+        </template>
+      </el-table-column>
+<!--      <el-table-column label="快递单号" align="center" prop="logisticsCode" />-->
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -139,7 +156,7 @@
 
       <el-form ref="form" :model="form" :rules="rules" label-width="80px" inline>
         <el-descriptions title="订单信息">
-            <el-descriptions-item label="订单号">{{form.id}}</el-descriptions-item>
+            <el-descriptions-item label="订单号">{{form.orderId}}</el-descriptions-item>
             <el-descriptions-item label="来源">
               <el-tag size="small" v-if="form.orderSource ===1 ">淘宝</el-tag>
               <el-tag size="small" v-if="form.orderSource ===0 ">天猫</el-tag>
@@ -277,12 +294,12 @@
 </template>
 
 <script>
-import { listOrder, pullOrder,getOrder,pushOms } from "@/api/tao/order";
+
 import { listShop } from "@/api/shop/shop";
 import { searchSku } from "@/api/goods/goods";
 import {MessageBox} from "element-ui";
 import {isRelogin} from "../../../utils/request";
-import {listShopOrder} from "@/api/shop/shop_order";
+import {listShopOrder,pullOrder,orderConfirm} from "@/api/shop/shop_order";
 
 export default {
   name: "OrderTao",
@@ -359,33 +376,22 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
+    isRowSelectable(row, index) {
+      return !row.confirmStatus || row.confirmStatus === 0 ;
+    },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.tid)
+      this.ids = selection.map(item => item.id)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
     handlePull() {
       if(this.queryParams.shopId){
         this.pullLoading = true
-        pullOrder({shopId:this.queryParams.shopId,updType:0}).then(response => {
-          console.log('拉取淘宝订单接口返回=====',response)
-          if(response.code === 1401) {
-              MessageBox.confirm('Token已过期，需要重新授权', '系统提示', { confirmButtonText: '重新授权', cancelButtonText: '取消', type: 'warning' }).then(() => {
-                isRelogin.show = false;
-                // store.dispatch('LogOut').then(() => {
-                location.href = response.data.tokenRequestUrl+'?shopId='+this.queryParams.shopId
-                // })
-              }).catch(() => {
-                isRelogin.show = false;
-              });
-
-            // return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
-          }else{
+        pullOrder({shopId:this.queryParams.shopId}).then(response => {
+          console.log('拉取订单接口返回=====',response)
             this.$modal.msgSuccess(JSON.stringify(response));
             this.pullLoading = false
-          }
-
         })
       }else{
         this.$modal.msgSuccess("请先选择店铺");
@@ -415,13 +421,14 @@ export default {
         }
       });
     },
-    handlePushOms(row) {
+    handleConfirm(row) {
       const ids = row.id || this.ids;
-      this.$modal.confirm('是否手动推送到系统？').then(function() {
-        return pushOms({ids:ids});
+      console.log('批量确认订单:',ids)
+      this.$modal.confirm('是否批量确认订单？').then(function() {
+        return orderConfirm({ids:ids});
       }).then(() => {
-        // this.getList();
-        this.$modal.msgSuccess("推送成功");
+        this.getList();
+        this.$modal.msgSuccess("确认成功");
       }).catch(() => {});
     },
   }
