@@ -23,7 +23,7 @@ public class ErpOrderShipping implements Serializable {
     /**
      * o_order表id
      */
-    private Long orderId;
+    private String orderId;
 
     /**
      * 订单编号

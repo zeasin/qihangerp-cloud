@@ -30,6 +30,11 @@
             <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
     </resultMap>
 
+<!--    <resultMap type="ErpOrderItemListVo" id="ErpOrderItemListVo">-->
+<!--        <id     property="orderNum"   column="order_id"   />-->
+<!--        <result property="title"   column="title"   />-->
+<!--    </resultMap>-->
+
     <sql id="Base_Column_List">
         id,order_id,order_num,
         sub_order_num,sku_id,erp_goods_id,
@@ -40,4 +45,21 @@
         has_push_erp,create_time,create_by,
         update_time,update_by
     </sql>
+
+<!--    <select id="selectOrderItemList" parameterType="ErpOrderItemListBo" resultMap="ErpOrderItemListVo">-->
+<!--        SELECT oi.* FROM erp_order_item oi-->
+<!--        left join erp_order o on o.id = oi.order_id-->
+<!--        <where>-->
+<!--            <if test="dictType != null and dictType != ''">-->
+<!--                AND dict_type = #{dictType}-->
+<!--            </if>-->
+<!--            <if test="dictLabel != null and dictLabel != ''">-->
+<!--                AND dict_label like concat('%', #{dictLabel}, '%')-->
+<!--            </if>-->
+<!--            <if test="status != null and status != ''">-->
+<!--                AND status = #{status}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        order by dict_sort asc-->
+<!--    </select>-->
 </mapper>

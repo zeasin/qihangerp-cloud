@@ -1,19 +1,19 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="店铺" prop="shopId">
-        <el-select v-model="queryParams.shopId" filterable  placeholder="搜索店铺" >
-          <el-option v-for="item in shopList" :key="item.id" :label="item.name" :value="item.id">
-            <span style="float: left">{{ item.name }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 4">淘宝天猫</span>
-              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 5">拼多多</span>
-              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 6">抖店</span>
-              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 7">小红书</span>
-              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 13">快手小店</span>
-              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 99">其他</span>
-          </el-option>
-          </el-select>
-      </el-form-item>
+<!--      <el-form-item label="店铺" prop="shopId">-->
+<!--        <el-select v-model="queryParams.shopId" filterable  placeholder="搜索店铺" >-->
+<!--          <el-option v-for="item in shopList" :key="item.id" :label="item.name" :value="item.id">-->
+<!--            <span style="float: left">{{ item.name }}</span>-->
+<!--              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 4">淘宝天猫</span>-->
+<!--              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 5">拼多多</span>-->
+<!--              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 6">抖店</span>-->
+<!--              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 7">小红书</span>-->
+<!--              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 13">快手小店</span>-->
+<!--              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 99">其他</span>-->
+<!--          </el-option>-->
+<!--          </el-select>-->
+<!--      </el-form-item>-->
       <el-form-item label="商品ID" prop="goodsId">
         <el-input
           v-model="queryParams.goodsId"
@@ -46,16 +46,16 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="备货状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="请选择">
-        <el-option
-          v-for="item in statusList"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-        </el-select>
-      </el-form-item>
+<!--      <el-form-item label="备货状态" prop="status">-->
+<!--        <el-select v-model="queryParams.status" placeholder="请选择">-->
+<!--        <el-option-->
+<!--          v-for="item in statusList"-->
+<!--          :key="item.value"-->
+<!--          :label="item.label"-->
+<!--          :value="item.value">-->
+<!--        </el-option>-->
+<!--        </el-select>-->
+<!--      </el-form-item>-->
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -63,39 +63,39 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-document-copy"
-          size="mini"
-          :disabled="multiple"
-          @click="handleSelection"
-          v-hasPermi="['xhs:orderReceiver:remove']"
-        >生成拣货单</el-button>
-      </el-col>
-      <el-col :span="1.5">
-      <el-button
-        type="primary"
-        plain
-        icon="el-icon-data-analysis"
-        size="mini"
-        :disabled="multiple"
-        @click="handleStatistics"
-        v-hasPermi="['xhs:orderReceiver:remove']"
-      >统计</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="danger"-->
+<!--          plain-->
+<!--          icon="el-icon-document-copy"-->
+<!--          size="mini"-->
+<!--          :disabled="multiple"-->
+<!--          @click="handleSelection"-->
+<!--          v-hasPermi="['xhs:orderReceiver:remove']"-->
+<!--        >生成拣货单</el-button>-->
+<!--      </el-col>-->
+<!--      <el-col :span="1.5">-->
+<!--      <el-button-->
+<!--        type="primary"-->
+<!--        plain-->
+<!--        icon="el-icon-data-analysis"-->
+<!--        size="mini"-->
+<!--        :disabled="multiple"-->
+<!--        @click="handleStatistics"-->
+<!--        v-hasPermi="['xhs:orderReceiver:remove']"-->
+<!--      >统计</el-button>-->
+<!--      </el-col>-->
 
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['wms:shipping:export']"
-        >导出</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="warning"-->
+<!--          plain-->
+<!--          icon="el-icon-download"-->
+<!--          size="mini"-->
+<!--          @click="handleExport"-->
+<!--          v-hasPermi="['wms:shipping:export']"-->
+<!--        >导出</el-button>-->
+<!--      </el-col>-->
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -103,11 +103,11 @@
        <el-table-column type="selection" width="55" v-if="queryParams.status==='0'" align="center" />
       <!-- <el-table-column label="主键" align="center" prop="id" /> -->
       <el-table-column label="订单编号" align="center" prop="orderNum" />
-       <el-table-column label="店铺" align="center" prop="shopId" >
-        <template slot-scope="scope">
-          <span>{{ shopList.find(x=>x.id === scope.row.shopId).name  }}</span>
-        </template>
-      </el-table-column>
+<!--       <el-table-column label="店铺" align="center" prop="shopId" >-->
+<!--        <template slot-scope="scope">-->
+<!--          <span>{{ shopList.find(x=>x.id === scope.row.shopId).name  }}</span>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
       <!-- <el-table-column label="店铺平台" align="center" prop="shopType" >
          <template slot-scope="scope">
           <el-tag size="small" v-if="scope.row.shopType === 4">淘宝</el-tag>
@@ -117,62 +117,25 @@
          </template>
       </el-table-column> -->
 
-      <!-- <el-table-column label="子订单编号" align="center" prop="orderItemId" /> -->
-      <el-table-column label="订单日期" align="center" prop="orderDate" width="180">
+       <el-table-column label="子订单编号" align="center" prop="subOrderNum" />
+      <el-table-column label="下单日期" align="center" prop="orderDate" width="180">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.orderDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
+
       <el-table-column label="商品" >
-          <template slot-scope="scope">
-            <el-row :gutter="20">
-            <div style="float: left;display: flex;align-items: center;" >
-              <el-image  style="width: 70px; height: 70px;" :src="scope.row.goodsImg"></el-image>
-              <div style="margin-left:10px">
-              <p>{{scope.row.goodsTitle}}</p>
-              <p>{{scope.row.goodsSpec}}&nbsp;
-                <el-tag size="small">x {{scope.row.quantity}}</el-tag>
-                </p>
-              </div>
-            </div>
-            </el-row>
-          </template>
-      </el-table-column>
-      <el-table-column label="规格编码" align="center" prop="specNum" />
-      <!-- <el-table-column label="erp系统商品id" align="center" prop="goodsId" />
-      <el-table-column label="erp系统商品规格id" align="center" prop="specId" />
-      <el-table-column label="商品标题" align="center" prop="goodsTitle" />
-      <el-table-column label="商品图片" align="center" prop="goodsImg" />
-      <el-table-column label="商品编码" align="center" prop="goodsNum" />
-      <el-table-column label="商品规格" align="center" prop="goodsSpec" />
-      <el-table-column label="商品规格编码" align="center" prop="specNum" /> -->
-       <el-table-column label="商品数量" align="center" prop="quantity" />
-      <!-- <el-table-column label="备注" align="center" prop="remark" /> -->
-      <!-- <el-table-column label="物流公司" align="center" prop="shipCompany" /> -->
-<!--      <el-table-column label="物流单号" align="center" prop="shipNo" />-->
-<!--      <el-table-column label="运费" align="center" prop="shipCost" />-->
-<!--      <el-table-column label="发货时间" align="center" prop="shipTime" width="180">-->
-<!--        <template slot-scope="scope">-->
-<!--          <span>{{ parseTime(scope.row.shipTime, '{y}-{m}-{d}') }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column label="出库人" align="center" prop="outOperator" />-->
-<!--      <el-table-column label="出库仓位" align="center" prop="outPosition" />-->
-<!--      <el-table-column label="出库时间" align="center" prop="outTime" width="180">-->
-<!--        <template slot-scope="scope">-->
-<!--          <span>{{ parseTime(scope.row.outTime, '{y}-{m}-{d}') }}</span>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-
-
-      <el-table-column label="仓库库存" align="center" prop="inventory" />
-      <el-table-column label="状态" align="center" prop="status" >
         <template slot-scope="scope">
-          <el-tag size="small" v-if="scope.row.status === 0">待备货</el-tag>
-          <el-tag size="small" v-if="scope.row.status === 1">备货中</el-tag>
-          <el-tag size="small" v-if="scope.row.status === 2">已出库</el-tag>
+              <el-image  style="width: 70px; height: 70px;" :src="scope.row.goodsImg"></el-image>
         </template>
       </el-table-column>
+      <el-table-column label="商品标题" align="center" prop="goodsTitle" />
+      <el-table-column label="商品SKU" align="center" prop="goodsSpec" />
+      <el-table-column label="数量" align="center" prop="quantity" />
+
+      <el-table-column label="SKU编码" align="center" prop="skuNum" />
+
+
 <!--      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">-->
 <!--        <template slot-scope="scope">-->
 <!--          <el-button-->
@@ -241,7 +204,7 @@
 </template>
 
 <script>
-import { listShipping, getShipping, stockingAdd } from "@/api/wms/shipping";
+import { listShippingStock, getShipping, stockingAdd } from "@/api/wms/shipping";
 import { listShop } from "@/api/shop/shop";
 export default {
   name: "stockShip",
@@ -335,7 +298,7 @@ export default {
     /** 查询仓库订单发货列表 */
     getList() {
       this.loading = true;
-      listShipping(this.queryParams).then(response => {
+      listShippingStock(this.queryParams).then(response => {
         this.shippingList = response.rows;
         this.total = response.total;
         this.loading = false;

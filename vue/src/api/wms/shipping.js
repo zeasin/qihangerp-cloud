@@ -1,13 +1,22 @@
 import request from '@/utils/request'
 
 // 查询仓库订单发货列表
-export function listShipping(query) {
+export function listShippingStock(query) {
   return request({
-    url: '/wms/shipping/list',
+    url: '/shipping/stock_ship_list',
     method: 'get',
     params: query
   })
 }
+// 查询供应商订单发货列表
+export function listShippingSupplier(query) {
+  return request({
+    url: '/shipping/supplier_ship_list',
+    method: 'get',
+    params: query
+  })
+}
+
 
 // 查询仓库订单发货详细
 export function getShipping(id) {
