@@ -81,7 +81,7 @@ public class AfterSaleOrderVo implements Serializable {
     /**
      * 订单号，该字段可用于获取订单
      */
-    private String orderId;
+    private String order_id;
     private String complaint_id;
     private JSONObject refund_resp;
 

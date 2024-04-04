@@ -52,6 +52,7 @@ public class WeiRefundServiceImpl extends ServiceImpl<WeiRefundMapper, WeiRefund
                 // 存在，修改
                 WeiRefund update = new WeiRefund();
                 update.setId(refunds.get(0).getId());
+                update.setOrderId(refund.getOrderId());
                 update.setStatus(refund.getStatus());
                 update.setUpdateTime(refund.getUpdateTime());
                 update.setReturnWaybillId(refund.getReturnWaybillId());

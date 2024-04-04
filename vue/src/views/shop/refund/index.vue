@@ -72,7 +72,7 @@
           size="mini"
           :disabled="multiple"
           @click="handlePushOms"
-        >手动将选中退款推送到OMS</el-button>
+        >同步到ERP</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -80,53 +80,43 @@
     <el-table v-loading="loading" :data="taoRefundList" @selection-change="handleSelectionChange">
        <el-table-column type="selection" width="55" align="center" />
       <!-- <el-table-column label="${comment}" align="center" prop="id" /> -->
-      <el-table-column label="退款单号" align="center" prop="refundId" />
-      <el-table-column label="类型" align="center" prop="disputeType" >
+      <el-table-column label="退款单号" align="center" prop="afterSaleOrderId" />
+      <el-table-column label="类型" align="center" prop="type" >
         <template slot-scope="scope">
-          <el-tag size="small" v-if="scope.row.disputeType === 'REFUND'"> 仅退款</el-tag>
-          <el-tag size="small" v-if="scope.row.disputeType === 'REFUND_AND_RETURN'"> 退货退款</el-tag>
-          <el-tag size="small" v-if="scope.row.disputeType === 'TMALL_EXCHANGE'"> 天猫换货</el-tag>
-          <el-tag size="small" v-if="scope.row.disputeType === 'TAOBAO_EXCHANGE'"> 淘宝换货</el-tag>
-          <el-tag size="small" v-if="scope.row.disputeType === 'REPAIR'">维修</el-tag>
-          <el-tag size="small" v-if="scope.row.disputeType === 'RESHIPPING'">补寄</el-tag>
-          <el-tag size="small" v-if="scope.row.disputeType === 'OTHERS'">其他</el-tag>
+          <el-tag size="small" v-if="scope.row.type === 'REFUND'"> 退款</el-tag>
+          <el-tag size="small" v-if="scope.row.type === 'RETURN'"> 退货退款</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="订单号" align="center" prop="tid" />
-      <el-table-column label="退货数量" align="center" prop="num" />
-       <el-table-column label="商品" align="center" prop="title" />
-       <el-table-column label="sku" align="center" prop="sku" />
-      <el-table-column label="退款金额" align="center" prop="refundFee" />
-       <el-table-column label="申请时间" align="center" prop="created" />
-      <el-table-column label="退款原因" align="center" prop="reason" />
-       <el-table-column label="说明" align="center" prop="desc1" />
-      <el-table-column label="退货物流" align="center" prop="sid" />
+      <el-table-column label="订单号" align="center" prop="orderId" />
+      <el-table-column label="退货数量" align="center" prop="count" />
+       <el-table-column label="商品skuId" align="center" prop="skuId" />
+
+      <el-table-column label="退款金额" align="center" prop="refundAmount" >
+        <template slot-scope="scope">
+          <span>{{ scope.row.refundAmount/100 }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{m}:{s}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="退款原因" align="center" prop="reasonText" />
+       <el-table-column label="说明" align="center" prop="details" />
+      <el-table-column label="退货物流" align="center" prop="returnWaybillId" />
        <el-table-column label="状态" align="center" prop="status" >
-         <template slot-scope="scope">
-           <el-tag size="small" v-if="scope.row.status === 'WAIT_SELLER_AGREE'"> 买家已经申请退款，等待卖家同意</el-tag>
-           <el-tag size="small" v-if="scope.row.status === 'WAIT_BUYER_RETURN_GOODS'"> 卖家已经同意退款，等待买家退货</el-tag>
-           <el-tag size="small" v-if="scope.row.status === 'WAIT_SELLER_CONFIRM_GOODS'"> 买家已经退货，等待卖家确认收货</el-tag>
-           <el-tag size="small" v-if="scope.row.status === 'SELLER_REFUSE_BUYER'"> 卖家拒绝退款</el-tag>
-           <el-tag size="small" v-if="scope.row.status === 'CLOSED'">退款关闭</el-tag>
-           <el-tag size="small" v-if="scope.row.status === 'SUCCESS'">退款成功</el-tag>
-           <br />
-           <el-tag style="margin-top: 5px" size="small" v-if="scope.row.hasGoodReturn === 1"> 买家需要退货</el-tag>
-           <el-tag style="margin-top: 5px" size="small" v-if="scope.row.hasGoodReturn === 0"> 买家不需要退货</el-tag>
-         </template>
+<!--         <template slot-scope="scope">-->
+<!--           <el-tag size="small" v-if="scope.row.status === 'WAIT_SELLER_AGREE'"> 买家已经申请退款，等待卖家同意</el-tag>-->
+<!--           <el-tag size="small" v-if="scope.row.status === 'WAIT_BUYER_RETURN_GOODS'"> 卖家已经同意退款，等待买家退货</el-tag>-->
+<!--           <el-tag size="small" v-if="scope.row.status === 'WAIT_SELLER_CONFIRM_GOODS'"> 买家已经退货，等待卖家确认收货</el-tag>-->
+<!--           <el-tag size="small" v-if="scope.row.status === 'SELLER_REFUSE_BUYER'"> 卖家拒绝退款</el-tag>-->
+<!--           <el-tag size="small" v-if="scope.row.status === 'CLOSED'">退款关闭</el-tag>-->
+<!--           <el-tag size="small" v-if="scope.row.status === 'SUCCESS'">退款成功</el-tag>-->
+<!--           <br />-->
+<!--           <el-tag style="margin-top: 5px" size="small" v-if="scope.row.hasGoodReturn === 1"> 买家需要退货</el-tag>-->
+<!--           <el-tag style="margin-top: 5px" size="small" v-if="scope.row.hasGoodReturn === 0"> 买家不需要退货</el-tag>-->
+<!--         </template>-->
        </el-table-column>
-      <!-- <el-table-column label="处理时间" align="center" prop="auditTime" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.auditTime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="收货时间" align="center" prop="receivedTime" width="180">
-        <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.receivedTime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column> -->
-      <!-- <el-table-column label="${comment}" align="center" prop="address" /> -->
-<!--      <el-table-column label="备注" align="center" prop="remark" />-->
-      <!-- <el-table-column label="创建时间" align="center" prop="createOn" /> -->
       <el-table-column label="店铺" align="center" prop="shopId" >
         <template slot-scope="scope">
           <span>{{ shopList.find(x=>x.id === scope.row.shopId).name  }}</span>

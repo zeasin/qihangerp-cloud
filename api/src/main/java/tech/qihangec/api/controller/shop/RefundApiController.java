@@ -94,7 +94,7 @@ public class RefundApiController {
                     String s="";
                     if(refundDetail.getErrcode() == 0){
                         WeiRefund refund = new WeiRefund();
-                        refund.setOrderId(refundDetail.getAfter_sale_order().getOrderId());
+                        refund.setOrderId(refundDetail.getAfter_sale_order().getOrder_id());
                         refund.setAfterSaleOrderId(refundDetail.getAfter_sale_order().getAfter_sale_order_id());
                         refund.setShopId(params.getShopId());
                         refund.setStatus(refundDetail.getAfter_sale_order().getStatus());
