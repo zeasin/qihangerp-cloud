@@ -216,6 +216,7 @@
 import { listShop } from "@/api/shop/shop";
 import {MessageBox} from "element-ui";
 import {isRelogin} from "@/utils/request";
+import {listShopRefund, pullRefund} from "@/api/shop/shop_refund";
 export default {
   name: "TaoRefund",
   data() {
@@ -269,7 +270,7 @@ export default {
     };
   },
   created() {
-    listShop({type:1}).then(response => {
+    listShop({type:5}).then(response => {
         this.shopList = response.rows;
       });
     this.getList();
@@ -278,7 +279,7 @@ export default {
     /** 查询淘宝退款订单列表 */
     getList() {
       this.loading = true;
-      listTaoRefund(this.queryParams).then(response => {
+      listShopRefund(this.queryParams).then(response => {
         this.taoRefundList = response.rows;
         this.total = response.total;
         this.loading = false;
@@ -326,7 +327,7 @@ export default {
       if(this.queryParams.shopId){
         this.pullLoading = true
         pullRefund({shopId:this.queryParams.shopId,updType:0}).then(response => {
-          console.log('拉取淘宝订单接口返回=====',response)
+          console.log('拉取退款接口返回=====',response)
           if(response.code === 1401) {
             MessageBox.confirm('Token已过期，需要重新授权', '系统提示', { confirmButtonText: '重新授权', cancelButtonText: '取消', type: 'warning' }).then(() => {
               isRelogin.show = false;

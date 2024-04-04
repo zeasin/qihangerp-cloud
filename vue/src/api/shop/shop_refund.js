@@ -1,18 +1,18 @@
 import request from '@/utils/request'
 
 // 查询店铺订单列表
-export function listShopOrder(query) {
+export function listShopRefund(query) {
   return request({
-    url: '/shop/order/list',
+    url: '/shop/refund/list',
     method: 'get',
     params: query
   })
 }
 
 // 接口拉取订单
-export function pullOrder(data) {
+export function pullRefund(data) {
   return request({
-    url: '/shop/order/pull_list',
+    url: '/shop/refund/pull_list',
     method: 'post',
     data: data
   })

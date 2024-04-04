@@ -57,6 +57,7 @@ public class WeiOrderServiceImpl extends ServiceImpl<WeiOrderMapper, WeiOrder>
         return PageResult.build(taoGoodsPage);
     }
 
+    @Transactional
     @Override
     public ResultVo<Integer> saveOrder(Integer shopId, WeiOrder order) {
         try {
