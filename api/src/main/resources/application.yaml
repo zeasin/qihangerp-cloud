@@ -1,4 +1,9 @@
 spring:
+#  datasource:
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/qihang-erp-weishop?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#    username: root
+#    password: Andy_123
   datasource:
       url: jdbc:h2:file:./db/qihang-ecerp
       driver-class-name: org.h2.Driver
