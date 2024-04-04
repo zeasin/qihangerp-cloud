@@ -2,6 +2,8 @@ package tech.qihangec.api.service;
 
 import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.PageResult;
+import tech.qihangec.api.common.ResultVo;
+import tech.qihangec.api.common.bo.ErpOrderShipBo;
 import tech.qihangec.api.domain.ErpOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ErpOrderService extends IService<ErpOrder> {
     PageResult<ErpOrder> queryPageList(ErpOrder bo, PageQuery pageQuery);
+
+    ResultVo<Integer> shipErpOrder(ErpOrderShipBo shipBo);
 }

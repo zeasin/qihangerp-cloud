@@ -21,6 +21,7 @@
               <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 2">京东</span>
               <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 3">抖店</span>
               <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 4">拼多多</span>
+              <span style="float: right; color: #8492a6; font-size: 13px"  v-if="item.type === 5">视频号小店</span>
           </el-option>
         </el-select>
       </el-form-item>
@@ -56,6 +57,16 @@
     </el-form>
 
     <el-row :gutter="10" class="mb8">
+      <el-col :span="1.5">
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-refresh"
+          size="mini"
+          :disabled="multiple"
+          @click="handleShip"
+        >批量确认订单发货</el-button>
+      </el-col>
 <!--      <el-col :span="1.5">-->
 <!--        <el-button-->
 <!--          type="warning"-->
@@ -70,7 +81,7 @@
     </el-row>
 
     <el-table v-loading="loading" :data="orderList" @selection-change="handleSelectionChange">
-<!--      <el-table-column type="selection" width="55" align="center" />-->
+      <el-table-column type="selection" width="55" align="center"  :selectable="isRowSelectable" />
 <!--      <el-table-column label="订单ID" align="center" prop="id" />-->
       <el-table-column label="订单编号" align="center" prop="orderNum" />
       <el-table-column label="店铺" align="center" prop="shopId" >
@@ -103,6 +114,7 @@
       </el-table-column>
       <el-table-column label="状态" align="center" prop="orderStatus" >
         <template slot-scope="scope">
+          <el-tag v-if="scope.row.orderStatus === 0" style="margin-bottom: 6px;">待选择发货方式</el-tag>
           <el-tag v-if="scope.row.orderStatus === 1" style="margin-bottom: 6px;">待发货</el-tag>
           <el-tag v-if="scope.row.orderStatus === 2" style="margin-bottom: 6px;">已出库</el-tag>
           <el-tag v-if="scope.row.orderStatus === 3" style="margin-bottom: 6px;">已发货</el-tag>
@@ -136,14 +148,6 @@
             icon="el-icon-view"
             @click="handleDetail(scope.row)"
           >详情</el-button>
-          <div>
-            <el-button
-              size="mini"
-              type="success"
-              icon="el-icon-share"
-              @click="handleShip(scope.row)"
-            >订单发货</el-button>
-          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -260,11 +264,35 @@
         <el-button @click="cancel">取 消</el-button>
       </div> -->
     </el-dialog>
+    <!-- 订单发货确认对话框 -->
+    <el-dialog title="订单发货确认" :visible.sync="shipConfirmOpen" width="500px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="108px">
+        <el-form-item label="订单编号" prop="orderIds">
+          <el-col :span="24">
+            <el-input v-model="form.orderIds" style="width:220px" placeholder="请选择订单" disabled />
+          </el-col>
+
+        </el-form-item>
+        <el-form-item label="发货方式" prop="shipType">
+          <el-select v-model="form.shipType" placeholder="请选择发货方式" >
+            <el-option  label="仓库发货" value="0"></el-option>
+            <el-option  label="供应商发货" value="1"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="备注" prop="remark">
+          <el-input v-model="form.remark" type="textarea" placeholder="备注内容" style="width: 220px;" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" style="margin-left: 108px;">
+        <el-button type="primary" @click="submitForm">确认发货</el-button>
+         <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { listOrder, getOrder, delOrder, addOrder, updateOrder } from "@/api/order/order";
+import {listOrder, getOrder, delOrder, addOrder, updateOrder, shipOrder} from "@/api/order/order";
 import { listShop } from "@/api/shop/shop";
 export default {
   name: "Order",
@@ -282,6 +310,7 @@ export default {
       multiple: true,
       // 显示搜索条件
       showSearch: true,
+      shipConfirmOpen: false,
       // 总条数
       total: 0,
       // 店铺订单表格数据
@@ -298,24 +327,18 @@ export default {
         pageNum: 1,
         pageSize: 10,
         orderNum: null,
-        shopId: null,
-        tag: null,
-        refundStatus: null,
-        orderStatus: null,
-        payTime: null,
-        receiverName: null,
-        receiverMobile: null,
-        town: null,
-        city: null,
-        province: null,
-        shippingTime: null,
-        shippingNumber: null,
+        shopId: null
       },
       // 表单参数
-      form: {},
+      form: {
+        orderIds:null,
+        shipType:null,
+        remark:null
+      },
       // 表单校验
       rules: {
-
+        orderIds: [{ required: true, message: '不能为空' }],
+        shipType: [{ required: true, message: '请选择发货方式' }],
       }
     };
   },
@@ -345,18 +368,23 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
+    isRowSelectable(row, index) {
+      return row.orderStatus === 0 ;
+    },
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.id)
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
-
     reset(){
 
     },
     handleShip(row){
-
+      const id = row.id || this.ids
+      console.log('批量确认发货',id)
+      this.form.orderIds = id
+      this.shipConfirmOpen = true
     },
     /** 详情按钮操作 */
     handleDetail(row) {
@@ -372,6 +400,16 @@ export default {
       });
       this.isAudit = false
     },
+    submitForm() {
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          shipOrder(this.form)
+        }
+      })
+    },
+    cancel(){
+      this.shipConfirmOpen = false
+    }
   }
 };
 </script>

@@ -244,7 +244,7 @@
 import { listShipping, getShipping, stockingAdd } from "@/api/wms/shipping";
 import { listShop } from "@/api/shop/shop";
 export default {
-  name: "Shipping",
+  name: "stockShip",
   data() {
     return {
       // 遮罩层

@@ -4,14 +4,20 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.PageResult;
+import tech.qihangec.api.common.ResultVo;
+import tech.qihangec.api.common.ResultVoEnum;
+import tech.qihangec.api.common.bo.ErpOrderShipBo;
 import tech.qihangec.api.domain.ErpOrder;
 import tech.qihangec.api.domain.ErpOrderItem;
 import tech.qihangec.api.mapper.ErpOrderItemMapper;
 import tech.qihangec.api.service.ErpOrderService;
 import tech.qihangec.api.mapper.ErpOrderMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
 * @author TW
@@ -43,6 +49,29 @@ public class ErpOrderServiceImpl extends ServiceImpl<ErpOrderMapper, ErpOrder>
         }
 
         return PageResult.build(pages);
+    }
+
+    @Transactional
+    @Override
+    public ResultVo<Integer> shipErpOrder(ErpOrderShipBo shipBo) {
+        if(shipBo.getOrderIds()==null||shipBo.getOrderIds().length==0) return ResultVo.error(ResultVoEnum.ParamsError,"请选择订单");
+        if(shipBo.getShipType()==null) return ResultVo.error(ResultVoEnum.ParamsError,"请指定发货方式");
+        for(String orderId:shipBo.getOrderIds()){
+            ErpOrder erpOrder = mapper.selectById(orderId);
+            if(erpOrder!=null){
+                if(erpOrder.getOrderStatus()==0){
+                    // 更新状态、发货方式
+                    ErpOrder update = new ErpOrder();
+                    update.setId(erpOrder.getId());
+                    update.setShipType(shipBo.getShipType());
+                    update.setOrderStatus(1);
+                    update.setUpdateTime(new Date());
+                    update.setUpdateBy("确认发货方式");
+                    mapper.updateById(update);
+                }
+            }
+        }
+        return ResultVo.success();
     }
 }
 

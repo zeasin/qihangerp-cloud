@@ -122,7 +122,7 @@ public class WeiOrderServiceImpl extends ServiceImpl<WeiOrderMapper, WeiOrder>
                                 insert.setShopType(EnumShopType.WEI.getIndex());
                                 insert.setShopId(weiOrder.getShopId());
                                 insert.setRefundStatus(1);
-                                insert.setOrderStatus(1);
+                                insert.setOrderStatus(0);
                                 insert.setGoodsAmount(weiOrder.getProductPrice().doubleValue()/100);
                                 insert.setAmount(weiOrder.getOrderPrice().doubleValue()/100);
                                 insert.setReceiverName(weiOrder.getUserName());
@@ -131,7 +131,7 @@ public class WeiOrderServiceImpl extends ServiceImpl<WeiOrderMapper, WeiOrder>
                                 insert.setCity(weiOrder.getCityName());
                                 insert.setTown(weiOrder.getCountyName());
                                 insert.setAddress(weiOrder.getDetailInfo());
-                                insert.setShipType(0);
+                                insert.setShipType(-1);
                                 insert.setOrderTime(new Date(weiOrder.getCreateTime() *1000));
                                 insert.setCreateTime(new Date());
                                 insert.setCreateBy("手动确认");
