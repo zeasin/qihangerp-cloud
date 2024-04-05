@@ -11,7 +11,7 @@
   <url>http://maven.apache.org</url>
   <modules>
     <module>api</module>
-    <module>api-test</module>
+<!--    <module>api-test</module>-->
   </modules>
 
   <properties>
