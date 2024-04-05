@@ -3682,7 +3682,7 @@ CREATE TABLE `sys_shop`  (
 -- ----------------------------
 -- Records of sys_shop
 -- ----------------------------
-INSERT INTO `sys_shop` VALUES (6, '视频号小店', 5, NULL, 9, 0, 0, NULL, 0, 'wx2b826d52663c3ac5', '', '', NULL, NULL, NULL, NULL, 'https://api.weixin.qq.com');
+INSERT INTO `sys_shop` VALUES (6, '视频号小店', 5, NULL, 9, 0, 0, NULL, 0, '', '', '', NULL, NULL, NULL, NULL, 'https://api.weixin.qq.com');
 
 -- ----------------------------
 -- Table structure for sys_shop_pull_lasttime
