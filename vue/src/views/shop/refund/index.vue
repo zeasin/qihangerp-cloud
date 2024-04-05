@@ -64,16 +64,16 @@
           @click="handlePull"
         >API拉取新退款</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-refresh"
-          size="mini"
-          :disabled="multiple"
-          @click="handlePushOms"
-        >同步到ERP</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--          type="primary"-->
+<!--          plain-->
+<!--          icon="el-icon-refresh"-->
+<!--          size="mini"-->
+<!--          :disabled="multiple"-->
+<!--          @click="handlePushOms"-->
+<!--        >同步到ERP</el-button>-->
+<!--      </el-col>-->
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -81,6 +81,11 @@
        <el-table-column type="selection" width="55" align="center" />
       <!-- <el-table-column label="${comment}" align="center" prop="id" /> -->
       <el-table-column label="退款单号" align="center" prop="afterSaleOrderId" />
+      <el-table-column label="店铺" align="center" prop="shopId" >
+        <template slot-scope="scope">
+          <span>{{ shopList.find(x=>x.id === scope.row.shopId).name  }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="类型" align="center" prop="type" >
         <template slot-scope="scope">
           <el-tag size="small" v-if="scope.row.type === 'REFUND'"> 退款</el-tag>
@@ -102,46 +107,63 @@
         </template>
       </el-table-column>
       <el-table-column label="退款原因" align="center" prop="reasonText" />
-       <el-table-column label="说明" align="center" prop="details" />
+<!--       <el-table-column label="说明" align="center" prop="details" />-->
       <el-table-column label="退货物流" align="center" prop="returnWaybillId" />
        <el-table-column label="状态" align="center" prop="status" >
-<!--         <template slot-scope="scope">-->
-<!--           <el-tag size="small" v-if="scope.row.status === 'WAIT_SELLER_AGREE'"> 买家已经申请退款，等待卖家同意</el-tag>-->
-<!--           <el-tag size="small" v-if="scope.row.status === 'WAIT_BUYER_RETURN_GOODS'"> 卖家已经同意退款，等待买家退货</el-tag>-->
-<!--           <el-tag size="small" v-if="scope.row.status === 'WAIT_SELLER_CONFIRM_GOODS'"> 买家已经退货，等待卖家确认收货</el-tag>-->
-<!--           <el-tag size="small" v-if="scope.row.status === 'SELLER_REFUSE_BUYER'"> 卖家拒绝退款</el-tag>-->
-<!--           <el-tag size="small" v-if="scope.row.status === 'CLOSED'">退款关闭</el-tag>-->
-<!--           <el-tag size="small" v-if="scope.row.status === 'SUCCESS'">退款成功</el-tag>-->
-<!--           <br />-->
-<!--           <el-tag style="margin-top: 5px" size="small" v-if="scope.row.hasGoodReturn === 1"> 买家需要退货</el-tag>-->
-<!--           <el-tag style="margin-top: 5px" size="small" v-if="scope.row.hasGoodReturn === 0"> 买家不需要退货</el-tag>-->
-<!--         </template>-->
+         <template slot-scope="scope">
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_RETURN_SUCCESS'"> 退货退款完成</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_REFUND_SUCCESS'"> 退款完成</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'USER_CANCELD'"> 用户取消申请</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_PROCESSING'"> 商家受理中</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_REJECT_REFUND'">商家拒绝退款</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_REJECT_RETURN'">商家拒绝退货退款</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'USER_WAIT_RETURN'">待买家退货</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'RETURN_CLOSED'">退货退款关闭</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_WAIT_RECEIPT'">待商家收货</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_OVERDUE_REFUND'">商家逾期未退款</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'PLATFORM_REFUNDING'">平台退款中</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'PLATFORM_REFUND_FAIL'">平台退款失败</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'USER_WAIT_CONFIRM'">待用户确认</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_REFUND_RETRY_FAIL'">商家打款失败，客服关闭售后</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'MERCHANT_FAIL'">售后关闭</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'USER_WAIT_CONFIRM_UPDATE'">待用户处理商家协商</el-tag>
+           <el-tag size="small" v-if="scope.row.status === 'USER_WAIT_HANDLE_MERCHANT_AFTER_SALE'">待用户处理商家代发起的售后申请</el-tag>
+         </template>
        </el-table-column>
-      <el-table-column label="店铺" align="center" prop="shopId" >
+
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="180">
         <template slot-scope="scope">
-          <span>{{ shopList.find(x=>x.id === scope.row.shopId).name  }}</span>
-        </template>
-      </el-table-column>
-      <!-- <el-table-column label="${comment}" align="center" prop="erpGoodsId" /> -->
-      <!-- <el-table-column label="${comment}" align="center" prop="erpGoodsSpecId" /> -->
-      <!-- <el-table-column label="sku编号" align="center" prop="specNumber" /> -->
-      <!-- <el-table-column label="退款阶段，可选值：onsale/aftersale" align="center" prop="refundPhase" /> -->
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
-        <template slot-scope="scope">
+
+            <el-button
+              v-if="scope.row.type === 'RETURN'"
+              size="mini"
+              type="text"
+              icon="el-icon-document-checked"
+              @click="handleDelete(scope.row)"
+            >退货签收</el-button>
+            <el-button
+              v-if="scope.row.type === 'REFUND'"
+              size="mini"
+              type="text"
+              icon="el-icon-connection"
+              @click="handleDelete(scope.row)"
+            >订单拦截</el-button>
+
+          <el-row>
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-edit"
+            icon="el-icon-refresh"
             @click="handleConfirm(scope.row)"
             v-hasPermi="['tao:taoRefund:edit']"
-          >更新状态</el-button>
+          >更新</el-button>
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-delete"
+            icon="el-icon-view"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['tao:taoRefund:remove']"
           >详情</el-button>
+          </el-row>
         </template>
       </el-table-column>
     </el-table>
@@ -304,15 +326,6 @@ export default {
       this.single = selection.length!==1
       this.multiple = !selection.length
     },
-    handlePushOms(row) {
-      const ids = row.id || this.ids;
-      this.$modal.confirm('是否手动推送到OMS？').then(function() {
-        return pushOms({ids:ids});
-      }).then(() => {
-        // this.getList();
-        this.$modal.msgSuccess("推送成功");
-      }).catch(() => {});
-    },
     handlePull() {
       if(this.queryParams.shopId){
         this.pullLoading = true
@@ -340,6 +353,9 @@ export default {
       }
 
       // this.$modal.msgSuccess("请先配置API");
+    },
+    submitForm(){
+
     }
   }
 

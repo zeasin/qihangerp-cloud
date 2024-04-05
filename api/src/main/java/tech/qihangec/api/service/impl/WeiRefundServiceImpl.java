@@ -58,7 +58,7 @@ public class WeiRefundServiceImpl extends ServiceImpl<WeiRefundMapper, WeiRefund
                 update.setReturnWaybillId(refund.getReturnWaybillId());
                 update.setReturnDeliveryName(refund.getReturnDeliveryName());
                 update.setReturnDeliveryId(refund.getReturnDeliveryId());
-
+                update.setComplaintId(refund.getComplaintId());
                 mapper.updateById(update);
 
                 return ResultVo.error(ResultVoEnum.DataExist, "退款已经存在，更新成功");
