@@ -117,7 +117,7 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['api:returned:edit']"
-          >入库</el-button>
+          >拦截入库</el-button>
         </template>
       </el-table-column>
     </el-table>

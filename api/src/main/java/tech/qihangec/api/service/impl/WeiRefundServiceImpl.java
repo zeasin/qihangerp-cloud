@@ -11,13 +11,17 @@ import tech.qihangec.api.common.PageQuery;
 import tech.qihangec.api.common.PageResult;
 import tech.qihangec.api.common.ResultVo;
 import tech.qihangec.api.common.ResultVoEnum;
+import tech.qihangec.api.common.enums.EnumShopType;
+import tech.qihangec.api.domain.ErpAfterSale;
 import tech.qihangec.api.domain.WeiOrder;
 import tech.qihangec.api.domain.WeiOrderItem;
 import tech.qihangec.api.domain.WeiRefund;
+import tech.qihangec.api.mapper.ErpAfterSaleMapper;
 import tech.qihangec.api.service.WeiRefundService;
 import tech.qihangec.api.mapper.WeiRefundMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +34,7 @@ import java.util.List;
 public class WeiRefundServiceImpl extends ServiceImpl<WeiRefundMapper, WeiRefund>
     implements WeiRefundService{
     private final WeiRefundMapper mapper;
+    private final ErpAfterSaleMapper afterSaleMapper;
 
     @Override
     public PageResult<WeiRefund> queryPageList(WeiRefund bo, PageQuery pageQuery) {
@@ -72,6 +77,67 @@ public class WeiRefundServiceImpl extends ServiceImpl<WeiRefundMapper, WeiRefund
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return ResultVo.error(ResultVoEnum.SystemException, "系统异常：" + e.getMessage());
         }
+    }
+
+    @Transactional
+    @Override
+    public ResultVo<Integer> returnedConfirm(Long id) {
+        WeiRefund refund = mapper.selectById(id);
+        if(refund!=null && refund.getConfirmStatus()==null) {
+            ErpAfterSale afterSale = new ErpAfterSale();
+            afterSale.setType(10);
+            afterSale.setShopId(refund.getShopId());
+            afterSale.setShopType(EnumShopType.WEI.getIndex());
+            afterSale.setAfterSaleOrderId(refund.getAfterSaleOrderId());
+            afterSale.setOrderId(refund.getOrderId());
+            afterSale.setProductId(refund.getProductId());
+            afterSale.setSkuId(refund.getSkuId());
+            afterSale.setCount(refund.getCount());
+            // TODO：没有记录商品数据
+            afterSale.setReturnCompany(refund.getReturnDeliveryName());
+            afterSale.setReturnWaybillCode(refund.getReturnWaybillId());
+            afterSale.setStatus(2);
+            afterSale.setCreateBy("后台签收");
+            afterSale.setCreateTime(new Date());
+            afterSaleMapper.insert(afterSale);
+            // 插入售后处理表
+            WeiRefund complete = new WeiRefund();
+            complete.setId(id.toString());
+            complete.setConfirmStatus(9);
+            complete.setConfirmTime(new Date());
+            mapper.updateById(complete);
+        }
+        return ResultVo.success();
+    }
+
+    @Override
+    public ResultVo<Integer> orderIntercept(Long id) {
+        WeiRefund refund = mapper.selectById(id);
+        if(refund!=null && refund.getConfirmStatus()==null) {
+            ErpAfterSale afterSale = new ErpAfterSale();
+            afterSale.setType(99);
+            afterSale.setShopId(refund.getShopId());
+            afterSale.setShopType(EnumShopType.WEI.getIndex());
+            afterSale.setAfterSaleOrderId(refund.getAfterSaleOrderId());
+            afterSale.setOrderId(refund.getOrderId());
+            afterSale.setProductId(refund.getProductId());
+            afterSale.setSkuId(refund.getSkuId());
+            afterSale.setCount(refund.getCount());
+            // TODO：没有记录商品数据
+//            afterSale.setReturnCompany(refund.getReturnDeliveryName());
+//            afterSale.setReturnWaybillCode(refund.getReturnWaybillId());
+            afterSale.setStatus(2);
+            afterSale.setCreateBy("后台拦截");
+            afterSale.setCreateTime(new Date());
+            afterSaleMapper.insert(afterSale);
+            // 插入售后处理表
+            WeiRefund complete = new WeiRefund();
+            complete.setId(id.toString());
+            complete.setConfirmStatus(8);
+            complete.setConfirmTime(new Date());
+            mapper.updateById(complete);
+        }
+        return ResultVo.success();
     }
 }
 

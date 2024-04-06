@@ -1,6 +1,8 @@
 package tech.qihangec.api.domain;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -133,6 +135,8 @@ public class WeiRefund implements Serializable {
      * 微信支付退款的响应
      */
     private String refundResp;
+    private Integer confirmStatus;
+    private Date confirmTime;
 
     private static final long serialVersionUID = 1L;
 }

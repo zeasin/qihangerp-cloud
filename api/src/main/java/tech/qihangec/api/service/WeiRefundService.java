@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface WeiRefundService extends IService<WeiRefund> {
     PageResult<WeiRefund> queryPageList(WeiRefund bo, PageQuery pageQuery);
     ResultVo<Integer> saveRefund(Integer shopId, WeiRefund refund);
+    ResultVo<Integer> returnedConfirm( Long id);
+    ResultVo<Integer> orderIntercept( Long id);
 }

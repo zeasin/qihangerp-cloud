@@ -1,18 +1,15 @@
 package tech.qihangec.api.controller.shop;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import tech.qihangec.api.common.BaseController;
-import tech.qihangec.api.common.PageQuery;
-import tech.qihangec.api.common.PageResult;
-import tech.qihangec.api.common.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+import tech.qihangec.api.common.*;
+import tech.qihangec.api.domain.ErpAfterSale;
 import tech.qihangec.api.domain.WeiOrder;
 import tech.qihangec.api.domain.WeiRefund;
 import tech.qihangec.api.service.WeiRefundService;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @AllArgsConstructor
 @RestController
@@ -25,4 +22,21 @@ public class ShopRefundController extends BaseController {
 
         return getDataTable(result);
     }
+
+
+    @PutMapping("/returnedConfirm/{id}")
+    public AjaxResult returnedConfirm(@PathVariable Long id)
+    {
+        refundService.returnedConfirm(id);
+
+        return toAjax(1);
+    }
+    @PutMapping("/orderIntercept/{id}")
+    public AjaxResult orderIntercept(@PathVariable Long id)
+    {
+        refundService.orderIntercept(id);
+
+        return toAjax(1);
+    }
+
 }

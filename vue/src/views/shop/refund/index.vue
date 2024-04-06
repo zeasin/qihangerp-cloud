@@ -128,6 +128,8 @@
            <el-tag size="small" v-if="scope.row.status === 'MERCHANT_FAIL'">售后关闭</el-tag>
            <el-tag size="small" v-if="scope.row.status === 'USER_WAIT_CONFIRM_UPDATE'">待用户处理商家协商</el-tag>
            <el-tag size="small" v-if="scope.row.status === 'USER_WAIT_HANDLE_MERCHANT_AFTER_SALE'">待用户处理商家代发起的售后申请</el-tag>
+           <br/>
+           <el-tag size="small" style="margin-top: 5px" v-if="scope.row.type === 'RETURN' && scope.row.confirmStatus === 9">已签收</el-tag>
          </template>
        </el-table-column>
 
@@ -135,18 +137,18 @@
         <template slot-scope="scope">
 
             <el-button
-              v-if="scope.row.type === 'RETURN'"
+              v-if="scope.row.type === 'RETURN' && !scope.row.confirmStatus"
               size="mini"
               type="text"
               icon="el-icon-document-checked"
-              @click="handleDelete(scope.row)"
+              @click="handleReturnedConfirm(scope.row) "
             >退货签收</el-button>
             <el-button
-              v-if="scope.row.type === 'REFUND'"
+              v-if="scope.row.type === 'REFUND' && !scope.row.confirmStatus"
               size="mini"
               type="text"
               icon="el-icon-connection"
-              @click="handleDelete(scope.row)"
+              @click="handleOrderIntercept(scope.row) "
             >订单拦截</el-button>
 
           <el-row>
@@ -228,7 +230,7 @@
 import { listShop } from "@/api/shop/shop";
 import {MessageBox} from "element-ui";
 import {isRelogin} from "@/utils/request";
-import {listShopRefund, pullRefund} from "@/api/shop/shop_refund";
+import {listShopRefund, orderIntercept, pullRefund, returnedConfirm} from "@/api/shop/shop_refund";
 export default {
   name: "TaoRefund",
   data() {
@@ -353,6 +355,18 @@ export default {
       }
 
       // this.$modal.msgSuccess("请先配置API");
+    },
+    handleReturnedConfirm(row){
+      returnedConfirm(row.id).then(response => {
+        this.$modal.msgSuccess("签收完成");
+        this.getList()
+      });
+    },
+    handleOrderIntercept(row){
+      orderIntercept(row.id).then(response => {
+        this.$modal.msgSuccess("拦截成功");
+        this.getList()
+      });
     },
     submitForm(){
 

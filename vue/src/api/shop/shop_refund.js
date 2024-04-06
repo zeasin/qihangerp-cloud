@@ -21,17 +21,24 @@ export function pullRefund(data) {
 // 拉取订单详情
 export function pullOrderDetail(data) {
   return request({
-    url: '/shop/order/pull_detail',
+    url: '/shop/refund/pull_detail',
     method: 'post',
     data: data
   })
 }
 
 // 批量确认订单
-export function orderConfirm(data) {
+export function returnedConfirm(id) {
   return request({
-    url: '/shop/order/confirm',
-    method: 'post',
-    data: data
+    url: '/shop/refund/returnedConfirm/'+id,
+    method: 'put',
   })
 }
+
+export function orderIntercept(id) {
+  return request({
+    url: '/shop/refund/orderIntercept/'+id,
+    method: 'put',
+  })
+}
+
