@@ -10,7 +10,7 @@
   <name>qihangec-oms</name>
   <url>http://maven.apache.org</url>
   <modules>
-    <module>sys-api</module>
+    <module>auth-api</module>
     <module>api</module>
     <module>core</module>
     <module>oms-api</module>
