@@ -1,7 +1,7 @@
 {
-  "name": "qihang-oms",
-  "version": "1.6.0",
-  "description": "启航电商OMS系统",
+  "name": "qihang-erp",
+  "version": "2.8.4",
+  "description": "启航牛电商ERP系统",
   "author": "qihang",
   "license": "MIT",
   "scripts": {

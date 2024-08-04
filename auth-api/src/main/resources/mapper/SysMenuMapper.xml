@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qihang.sys.api.mapper.SysMenuMapper">
+<mapper namespace="com.qihang.auth.mapper.SysMenuMapper">
 
-    <resultMap id="BaseResultMap" type="com.qihang.sys.api.domain.SysMenu">
+    <resultMap id="BaseResultMap" type="com.qihang.auth.domain.SysMenu">
             <id property="menuId" column="menu_id" jdbcType="BIGINT"/>
             <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
             <result property="systemId" column="system_id" jdbcType="VARCHAR"/>
@@ -39,7 +39,7 @@
 
     <select id="selectMenuTreeAll" resultMap="BaseResultMap">
         select distinct m.menu_id, m.parent_id, m.menu_name, m.path, m.component, m.`query`, m.visible, m.status, ifnull(m.perms,'') as perms, m.is_frame, m.is_cache, m.menu_type, m.icon, m.order_num, m.create_time
-        from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0 and m.system_id='oms'
+        from sys_menu m where m.menu_type in ('M', 'C') and m.status = 0
         order by m.parent_id, m.order_num
     </select>
 

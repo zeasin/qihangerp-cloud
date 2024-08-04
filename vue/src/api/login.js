@@ -9,7 +9,7 @@ export function login(username, password, code, uuid) {
     uuid
   }
   return request({
-    url: '/api/sys-api/login',
+    url: '/auth-api/login',
     headers: {
       isToken: false
     },
@@ -23,7 +23,7 @@ export function login(username, password, code, uuid) {
 // 获取用户详细信息
 export function getInfo() {
   return request({
-    url: '/api/sys-api/getInfo',
+    url: '/auth-api/getInfo',
     method: 'get'
   })
 }
@@ -31,7 +31,7 @@ export function getInfo() {
 // 退出方法
 export function logout() {
   return request({
-    url: '/api/sys-api/logout',
+    url: '/auth-api/logout',
     method: 'post'
   })
 }
