@@ -25,6 +25,7 @@
         <module>offline-api</module>
         <module>gateway</module>
         <module>scm-api</module>
+        <module>wms-api</module>
     </modules>
 
     <properties>
