@@ -11,7 +11,6 @@ import com.qihang.oms.service.ErpSaleOrderService;
 import com.qihang.security.common.BaseController;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -29,7 +28,7 @@ public class OrderController extends BaseController
 {
 
     private final ErpSaleOrderService orderService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
 
     /**
      * 查询店铺订单列表

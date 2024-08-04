@@ -15,6 +15,12 @@ spring:
             - Path=/auth-api/**
           filters:
             - StripPrefix=1
+        - id: oms_api_route
+          uri: lb://oms-api
+          predicates:
+            - Path=/oms-api/**
+          filters:
+            - StripPrefix=1
         - id: offline_api_route
           uri: lb://offline-api
           predicates:

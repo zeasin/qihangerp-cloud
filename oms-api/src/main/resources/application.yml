@@ -1,54 +1,80 @@
 spring:
-  cloud:
-    nacos:
-#      serverAddr: 127.0.0.1:8848
-      discovery:
-        server-addr: 127.0.0.1:8848
-      config:
-        server-addr: 127.0.0.1:8848
-  config:
-    import:
-      - nacos:qihang-oms.yaml?refresh=true
+#  cloud:
+#    nacos:
+##      serverAddr: 127.0.0.1:8848
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#      config:
+#        server-addr: 127.0.0.1:8848
+#  config:
+#    import:
+#      - nacos:qihang-oms.yaml?refresh=true
+#  application:
+#    name: oms-api
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    producer:
+#      batch-size: 16384 #批量大小
+#      acks: -1 #应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
+#      retries: 10 # 消息发送重试次数
+#      #      transaction-id-prefix:  tx_1 #事务id前缀
+#      buffer-memory: 33554432
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      properties:
+#        linger:
+#          ms: 2000 #提交延迟
+#      #        partitioner: #指定分区器
+#      #          class: com.example.kafkademo.config.CustomizePartitioner
+#    consumer:
+#      group-id: testGroup #默认的消费组ID
+#      enable-auto-commit: true #是否自动提交offset
+#      auto-commit-interval: 2000 #提交offset延时
+#      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
+#      # earliest:重置为分区中最小的offset;
+#      # latest:重置为分区中最新的offset(消费分区中新产生的数据);
+#      # none:只要有一个分区不存在已提交的offset,就抛出异常;
+#      auto-offset-reset: latest
+#      max-poll-records: 500 #单次拉取消息的最大条数
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      properties:
+#        session:
+#          timeout:
+#            ms: 120000 # 消费会话超时时间（超过这个时间 consumer 没有发送心跳，就会触发 rebalance 操作）
+#        request:
+#          timeout:
+#            ms: 18000 # 消费请求的超时时间
   application:
     name: oms-api
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      batch-size: 16384 #批量大小
-      acks: -1 #应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
-      retries: 10 # 消息发送重试次数
-      #      transaction-id-prefix:  tx_1 #事务id前缀
-      buffer-memory: 33554432
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-      properties:
-        linger:
-          ms: 2000 #提交延迟
-      #        partitioner: #指定分区器
-      #          class: com.example.kafkademo.config.CustomizePartitioner
-    consumer:
-      group-id: testGroup #默认的消费组ID
-      enable-auto-commit: true #是否自动提交offset
-      auto-commit-interval: 2000 #提交offset延时
-      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
-      # earliest:重置为分区中最小的offset;
-      # latest:重置为分区中最新的offset(消费分区中新产生的数据);
-      # none:只要有一个分区不存在已提交的offset,就抛出异常;
-      auto-offset-reset: latest
-      max-poll-records: 500 #单次拉取消息的最大条数
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      properties:
-        session:
-          timeout:
-            ms: 120000 # 消费会话超时时间（超过这个时间 consumer 没有发送心跳，就会触发 rebalance 操作）
-        request:
-          timeout:
-            ms: 18000 # 消费请求的超时时间
-
+  data:
+    # redis 配置
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      # 密码
+      #    password: 123321
+      # 连接超时时间
+      timeout: 10s
+      lettuce:
+        pool:
+          # 连接池中的最小空闲连接
+          min-idle: 0
+          # 连接池中的最大空闲连接
+          max-idle: 8
+          # 连接池的最大数据库连接数
+          max-active: 8
+          # #连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: -1ms
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/qihang-erp?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: Andy_123
 
 server:
-  port: 8081
+  port: 8082
 
 
 mybatis-plus:

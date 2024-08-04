@@ -10,7 +10,6 @@ import com.qihang.oms.service.ErpSaleAfterRefundService;
 import com.qihang.oms.service.ErpSaleOrderService;
 import com.qihang.security.common.BaseController;
 import lombok.AllArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +29,7 @@ public class RefundController extends BaseController
 {
 
     private final ErpSaleAfterRefundService refundService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
 
     /**
      * 列表
