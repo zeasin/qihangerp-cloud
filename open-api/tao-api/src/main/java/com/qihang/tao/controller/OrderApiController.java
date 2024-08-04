@@ -26,7 +26,6 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -45,7 +44,7 @@ public class OrderApiController {
     private final SysShopPullLogsService pullLogsService;
     private final SysShopPullLasttimeService pullLasttimeService;
     private final OmsTaoOrderService orderService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
     /**
      * 增量更新订单
      * @param req
@@ -115,12 +114,12 @@ public class OrderApiController {
                 if (result.getCode() == ResultVoEnum.DataExist.getIndex()) {
                     //已经存在
                     log.info("/**************主动更新tao订单：开始更新数据库：" + order.getId() + "存在、更新****************/");
-                    kafkaTemplate.send(MqType.ORDER_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.ORDER_MESSAGE,order.getTid())));
+//                    kafkaTemplate.send(MqType.ORDER_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.ORDER_MESSAGE,order.getTid())));
 //                    mqUtils.sendApiMessage(MqMessage.build(EnumShopType.TAO, MqType.ORDER_MESSAGE,order.getTid().toString()));
                     hasExistOrder++;
                 } else if (result.getCode() == ResultVoEnum.SUCCESS.getIndex()) {
                     log.info("/**************主动更新tao订单：开始更新数据库：" + order.getId() + "不存在、新增****************/");
-                    kafkaTemplate.send(MqType.ORDER_MQ,JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.ORDER_MESSAGE,order.getTid())));
+//                    kafkaTemplate.send(MqType.ORDER_MQ,JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.ORDER_MESSAGE,order.getTid())));
 //                    mqUtils.sendApiMessage(MqMessage.build(EnumShopType.TAO,MqType.ORDER_MESSAGE,order.getTid().toString()));
                     insertSuccess++;
                 } else {

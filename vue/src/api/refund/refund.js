@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询退换货列表
 export function listReturned(query) {
   return request({
-    url: '/api/oms-api/refund/list',
+    url: '/oms-api/refund/list',
     method: 'get',
     params: query
   })

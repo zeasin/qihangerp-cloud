@@ -13,7 +13,6 @@ import com.qihang.tao.mapper.OmsTaoOrderMapper;
 import com.qihang.tao.service.ErpShipWaybillService;
 import com.qihang.tao.mapper.ErpShipWaybillMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +31,7 @@ public class ErpShipWaybillServiceImpl extends ServiceImpl<ErpShipWaybillMapper,
     implements ErpShipWaybillService{
     private final ErpShipWaybillMapper mapper;
     private final OmsTaoOrderMapper orderMapper;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
 
     /**
      * 更新电子面单信息
@@ -116,7 +115,7 @@ public class ErpShipWaybillServiceImpl extends ServiceImpl<ErpShipWaybillMapper,
                     //TODO: 打印成功之后 加入备货清单 采用kafka推送消息处理
 
                     // 打印完成，通知备货
-                    kafkaTemplate.send(MqType.SHIP_STOCK_UP_MQ, JSONObject.toJSONString(MqMessage.build(w.getShopId(), w.getOrderId())));
+//                    kafkaTemplate.send(MqType.SHIP_STOCK_UP_MQ, JSONObject.toJSONString(MqMessage.build(w.getShopId(), w.getOrderId())));
                 }
             }
         }
@@ -148,7 +147,7 @@ public class ErpShipWaybillServiceImpl extends ServiceImpl<ErpShipWaybillMapper,
 
                     // 更新erp_sale_order发货状态(controller层采用kafka推送消息处理)
                     // 发货完成，通知发货出库
-                    kafkaTemplate.send(MqType.SHIP_SEND_MQ, JSONObject.toJSONString(MqMessage.build(w.getShopId(),w.getOrderId(),w.getLogisticsCode(),w.getWaybillCode())));
+//                    kafkaTemplate.send(MqType.SHIP_SEND_MQ, JSONObject.toJSONString(MqMessage.build(w.getShopId(),w.getOrderId(),w.getLogisticsCode(),w.getWaybillCode())));
                 }
             }
         }

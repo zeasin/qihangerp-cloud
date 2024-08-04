@@ -14,12 +14,12 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <java.version>17</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>3.0.2</spring-boot.version>
-        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
-        <jwt.version>0.11.5</jwt.version>
+<!--        <java.version>17</java.version>-->
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+<!--        <spring-boot.version>3.0.2</spring-boot.version>-->
+<!--        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>-->
+<!--        <jwt.version>0.11.5</jwt.version>-->
     </properties>
 
     <dependencies>

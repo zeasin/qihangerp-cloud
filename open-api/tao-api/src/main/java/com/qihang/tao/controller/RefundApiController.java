@@ -24,7 +24,6 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,7 +42,7 @@ public class RefundApiController {
     private final SysShopPullLogsService pullLogsService;
     private final SysShopPullLasttimeService pullLasttimeService;
     private OmsTaoRefundService refundService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
     /**
      * 更新退货订单
      *
@@ -119,13 +118,13 @@ public class RefundApiController {
                 if (resultVo.getCode() == ResultVoEnum.DataExist.getIndex()) {
                     //已经存在
 //                    mqUtils.sendApiMessage(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE, refund.getRefundId()));
-                    kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE,taoRefund.getRefundId())));
+//                    kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE,taoRefund.getRefundId())));
                     log.info("/**************主动更新tao退货订单：开始更新数据库：" + refund.getRefundId() + "存在、更新****************/");
                     hasExistOrder++;
                 } else if (resultVo.getCode() == ResultVoEnum.SUCCESS.getIndex()) {
                     log.info("/**************主动更新tao退货订单：开始插入数据库：" + refund.getRefundId() + "不存在、新增****************/");
 //                    mqUtils.sendApiMessage(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE, refund.getRefundId()));
-                    kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE,taoRefund.getRefundId())));
+//                    kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE,taoRefund.getRefundId())));
                     insertSuccess++;
                 } else {
                     log.info("/**************主动更新tao退货订单：开始更新数据库：" + refund.getRefundId() + "报错****************/");
@@ -199,7 +198,7 @@ public class RefundApiController {
             BeanUtils.copyProperties(refundApiResultVo.getData(), taoRefund);
             ResultVo<Integer> resultVo = refundService.saveAndUpdateRefund(taoRequest.getShopId(), taoRefund);
             if(resultVo.getCode()==0){
-                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE,taoRefund.getRefundId())));
+//                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE,taoRefund.getRefundId())));
 //                mqUtils.sendApiMessage(MqMessage.build(EnumShopType.TAO, MqType.REFUND_MESSAGE, taoRequest.getRefundId().toString()));
             }
             return AjaxResult.success();

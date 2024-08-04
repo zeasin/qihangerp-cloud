@@ -15,16 +15,25 @@ spring:
             - Path=/auth-api/**
           filters:
             - StripPrefix=1
+        # oms-api
         - id: oms_api_route
           uri: lb://oms-api
           predicates:
             - Path=/oms-api/**
           filters:
             - StripPrefix=1
+        # offline-api
         - id: offline_api_route
           uri: lb://offline-api
           predicates:
             - Path=/offline-api/**
+          filters:
+            - StripPrefix=1
+        # tao-api
+        - id: tao_api_route
+          uri: lb://tao-api
+          predicates:
+            - Path=/tao-api/**
           filters:
             - StripPrefix=1
 eureka:
