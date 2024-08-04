@@ -24,7 +24,6 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +46,7 @@ public class PddOrderApiController {
     private final ApiCommon pddApiHelper;
     private final SysShopPullLasttimeService pullLasttimeService;
     private final SysShopPullLogsService pullLogsService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
     /**
      * 接口拉取订单
      *
@@ -119,11 +118,11 @@ public class PddOrderApiController {
                 if (result.getCode() == ResultVoEnum.DataExist.getIndex()) {
                     //已经存在
                     logger.info("/**************主动更新pdd订单：开始更新数据库：" + order.getId() + "存在、更新****************/");
-                    kafkaTemplate.send(MqType.ORDER_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.PDD, MqType.ORDER_MESSAGE,order.getOrderSn())));
+//                    kafkaTemplate.send(MqType.ORDER_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.PDD, MqType.ORDER_MESSAGE,order.getOrderSn())));
                     hasExistOrder++;
                 } else if (result.getCode() == ResultVoEnum.SUCCESS.getIndex()) {
                     logger.info("/**************主动更新pdd订单：开始更新数据库：" + order.getId() + "不存在、新增****************/");
-                    kafkaTemplate.send(MqType.ORDER_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.PDD, MqType.ORDER_MESSAGE,order.getOrderSn())));
+//                    kafkaTemplate.send(MqType.ORDER_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.PDD, MqType.ORDER_MESSAGE,order.getOrderSn())));
                     insertSuccess++;
                 } else {
                     logger.info("/**************主动更新pdd订单：开始更新数据库：" + order.getId() + "报错****************/");

@@ -9,6 +9,7 @@
 
     <groupId>com.qihang.eureka</groupId>
     <artifactId>eureka-server</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>eureka-server</name>
@@ -32,18 +33,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.springframework.boot</groupId>-->
-<!--                    <artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-undertow</artifactId>-->
-<!--            <version>3.0.2</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+            <version>3.0.2</version>
+        </dependency>
         <!-- Eureka Server dependency -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

@@ -27,7 +27,6 @@ import com.qihang.jd.service.OmsJdWaybillAccountService;
 import com.qihang.security.common.BaseController;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +43,7 @@ public class WaybillController extends BaseController {
     private final OmsJdWaybillAccountService waybillAccountService;
     private final OmsJdOrderService orderService;
     private final ErpShipWaybillService erpShipWaybillService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
 
     @RequestMapping(value = "/get_waybill_account_list", method = RequestMethod.POST)
     public AjaxResult getWaybillAccountList(@RequestBody PullRequest params) throws Exception {

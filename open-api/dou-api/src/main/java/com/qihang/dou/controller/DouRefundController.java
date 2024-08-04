@@ -15,7 +15,6 @@ import com.qihang.dou.domain.bo.DouRefundBo;
 import com.qihang.dou.service.OmsDouRefundService;
 import com.qihang.security.common.BaseController;
 import lombok.AllArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -29,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/refund")
 public class DouRefundController extends BaseController
 {
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
     private final OmsDouRefundService refundService;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public TableDataInfo orderList(DouRefundBo bo, PageQuery pageQuery) {
@@ -45,7 +44,7 @@ public class DouRefundController extends BaseController
         if(bo!=null && bo.getIds()!=null) {
             for(String id: bo.getIds()) {
 //                mqUtils.sendApiMessage(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE, id));
-                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,id)));
+//                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,id)));
             }
         }
         return AjaxResult.success();

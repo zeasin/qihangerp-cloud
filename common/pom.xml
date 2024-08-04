@@ -3,12 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.qihang</groupId>
-        <artifactId>core</artifactId>
-        <version>1.0.0</version>
+        <artifactId>qihangerp-cloud</artifactId>
+        <version>2.8.4</version>
     </parent>
 
-<!--    <groupId>com.qihang</groupId>-->
+    <groupId>com.qihang</groupId>
     <artifactId>common</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>common</name>

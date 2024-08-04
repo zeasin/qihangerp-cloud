@@ -14,7 +14,6 @@ import com.qihang.jd.domain.bo.JdOrderPushBo;
 import com.qihang.jd.service.OmsJdAfterSaleService;
 import com.qihang.security.common.BaseController;
 import lombok.AllArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/after")
 public class AfterSaleController extends BaseController {
     private final OmsJdAfterSaleService afterService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
 //    private final MqUtils mqUtils;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public TableDataInfo goodsList(JdAfterBo bo, PageQuery pageQuery) {
@@ -38,7 +37,7 @@ public class AfterSaleController extends BaseController {
         if(bo!=null && bo.getIds()!=null) {
             for(String id: bo.getIds()) {
 //                mqUtils.sendApiMessage(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE, id));
-                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,id)));
+//                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,id)));
             }
         }
         return success();

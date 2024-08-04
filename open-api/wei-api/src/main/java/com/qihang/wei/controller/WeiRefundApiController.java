@@ -16,7 +16,6 @@ import com.qihang.wei.bo.PullRequest;
 import com.qihang.wei.domain.OmsWeiRefund;
 import com.qihang.wei.service.OmsWeiRefundService;
 import lombok.AllArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +30,7 @@ import java.util.Date;
 public class WeiRefundApiController extends BaseController {
     private final WeiApiCommon apiCommon;
     private final OmsWeiRefundService refundService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
 
     @RequestMapping(value = "/pull_list", method = RequestMethod.POST)
     public AjaxResult pullList(@RequestBody PullRequest params) throws Exception {
@@ -95,10 +94,10 @@ public class WeiRefundApiController extends BaseController {
                     var result = refundService.saveRefund(params.getShopId(), refund);
                     if (result.getCode() == ResultVoEnum.DataExist.getIndex()) {
                         //已经存在
-                        kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,refund.getAfterSaleOrderId())));
+//                        kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,refund.getAfterSaleOrderId())));
                         hasExistOrder++;
                     } else if (result.getCode() == ResultVoEnum.SUCCESS.getIndex()) {
-                        kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,refund.getAfterSaleOrderId())));
+//                        kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,refund.getAfterSaleOrderId())));
                         insertSuccess++;
                     } else {
                         totalError++;

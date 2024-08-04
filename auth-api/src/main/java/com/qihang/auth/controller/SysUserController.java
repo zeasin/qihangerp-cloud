@@ -137,7 +137,7 @@ public class SysUserController extends BaseController
         {
             return error("当前用户不能删除");
         }
-        for (var userId:userIds){
+        for (Long userId:userIds){
             userService.deleteUserById(userId);
         }
         return toAjax(userIds.length);

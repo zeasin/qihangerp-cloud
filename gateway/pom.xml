@@ -9,6 +9,7 @@
 
     <groupId>com.qihang.gateway</groupId>
     <artifactId>gateway</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>gateway</name>
@@ -16,6 +17,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <maven.compiler.source>17</maven.compiler.source>
+                <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -35,6 +38,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-maven-plugin -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
     </dependencies>
 <!--    <dependencyManagement>-->
 
@@ -63,4 +73,12 @@
 <!--            </dependency>-->
 <!--        </dependencies>-->
 <!--    </dependencyManagement>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

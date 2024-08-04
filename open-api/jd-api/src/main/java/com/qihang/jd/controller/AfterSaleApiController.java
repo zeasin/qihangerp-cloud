@@ -23,7 +23,6 @@ import com.qihang.jd.service.SysShopPullLasttimeService;
 import com.qihang.jd.service.SysShopPullLogsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,7 +43,7 @@ public class AfterSaleApiController {
     private final MqUtils mqUtils;
     private final SysShopPullLasttimeService pullLasttimeService;
     private final OmsJdAfterSaleService afterSaleService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
     /**
      * 拉取售后数据
      *
@@ -119,12 +118,12 @@ public class AfterSaleApiController {
             if (result.getCode() == ResultVoEnum.DataExist.getIndex()) {
                 //已经存在
                 hasExist++;
-                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,afterSale.getServiceId().toString())));
+//                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,afterSale.getServiceId().toString())));
 //                mqUtils.sendApiMessage(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE, after.getServiceId().toString()));
             } else if (result.getCode() == ResultVoEnum.SUCCESS.getIndex()) {
                 insertSuccess++;
 //                mqUtils.sendApiMessage(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE, after.getServiceId().toString()));
-                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,afterSale.getServiceId().toString())));
+//                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,afterSale.getServiceId().toString())));
             } else {
                 totalError++;
             }
@@ -145,11 +144,11 @@ public class AfterSaleApiController {
                 //已经存在
                 hasExist++;
 //                mqUtils.sendApiMessage(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE, after.getServiceId().toString()));
-                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,afterSale.getServiceId().toString())));
+//                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,afterSale.getServiceId().toString())));
             } else if (result.getCode() == ResultVoEnum.SUCCESS.getIndex()) {
                 insertSuccess++;
 //                mqUtils.sendApiMessage(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE, after.getServiceId().toString()));
-                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,afterSale.getServiceId().toString())));
+//                kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.JD, MqType.REFUND_MESSAGE,afterSale.getServiceId().toString())));
             } else {
                 totalError++;
             }

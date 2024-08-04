@@ -3,9 +3,11 @@ package com.qihang.oms.controller;
 
 import com.qihang.common.common.AjaxResult;
 import com.qihang.common.common.PageQuery;
+import com.qihang.common.common.PageResult;
 import com.qihang.common.common.TableDataInfo;
 import com.qihang.oms.domain.ErpSaleOrderItem;
 import com.qihang.oms.domain.bo.OrderItemListBo;
+import com.qihang.oms.domain.vo.OrderItemListVo;
 import com.qihang.oms.service.ErpSaleOrderItemService;
 import com.qihang.oms.service.ErpSaleOrderService;
 import com.qihang.security.common.BaseController;
@@ -34,7 +36,7 @@ public class OrderItemController extends BaseController
     @GetMapping("/item_list")
     public TableDataInfo list(OrderItemListBo bo, PageQuery pageQuery)
     {
-        var pageList = itemService.selectPageVo(pageQuery,bo);
+        PageResult<OrderItemListVo> pageList = itemService.selectPageVo(pageQuery,bo);
         return getDataTable(pageList);
     }
 

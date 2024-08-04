@@ -3,6 +3,7 @@ package com.qihang.oms.controller;
 
 import com.qihang.common.common.AjaxResult;
 import com.qihang.common.common.PageQuery;
+import com.qihang.common.common.PageResult;
 import com.qihang.common.common.TableDataInfo;
 import com.qihang.common.mq.MqType;
 import com.qihang.oms.domain.ErpSaleOrder;
@@ -40,7 +41,7 @@ public class OrderController extends BaseController
 //        kafkaTemplate.send(MqType.ORDER_MQ,"新订单");
 //        PageQuery pageQuery = new PageQuery();
 //        List<OOrder> list = orderService.getList(order);
-        var pageList = orderService.queryPageList(order,pageQuery);
+        PageResult<ErpSaleOrder> pageList = orderService.queryPageList(order,pageQuery);
         return getDataTable(pageList);
     }
 

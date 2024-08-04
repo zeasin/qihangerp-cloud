@@ -15,7 +15,6 @@ import com.qihang.dou.domain.bo.DouOrderPushBo;
 import com.qihang.dou.service.OmsDouOrderService;
 import com.qihang.security.common.BaseController;
 import lombok.AllArgsConstructor;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/order")
 public class OrderContoller extends BaseController {
     private final OmsDouOrderService orderService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
 //    private final MqUtils mqUtils;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public TableDataInfo goodsList(DouOrderBo bo, PageQuery pageQuery) {
@@ -49,7 +48,7 @@ public class OrderContoller extends BaseController {
         // TODO:需要优化消息格式
         if(bo!=null && bo.getIds()!=null) {
             for(String id: bo.getIds()) {
-                kafkaTemplate.send(MqType.ORDER_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.ORDER_MESSAGE,id)));
+//                kafkaTemplate.send(MqType.ORDER_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.ORDER_MESSAGE,id)));
 //                mqUtils.sendApiMessage(MqMessage.build(EnumShopType.PDD, MqType.ORDER_MESSAGE, id));
             }
         }

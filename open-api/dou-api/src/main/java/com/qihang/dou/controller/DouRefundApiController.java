@@ -20,7 +20,6 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +32,7 @@ public class DouRefundApiController {
     private static Logger logger = LoggerFactory.getLogger(DouRefundApiController.class);
     private final DouApiHelper douApiHelper;
     private final OmsDouRefundService refundService;
-    private final KafkaTemplate<String,Object> kafkaTemplate;
+//    private final KafkaTemplate<String,Object> kafkaTemplate;
     @RequestMapping(value = "/pull_refund", method = RequestMethod.POST)
     public AjaxResult pullRefundList(@RequestBody DouRequest req) throws Exception {
         if (req.getShopId() == null || req.getShopId() <= 0) {
@@ -93,11 +92,11 @@ public class DouRefundApiController {
                 if (result.getCode() == ResultVoEnum.DataExist.getIndex()) {
                     //已经存在
                     logger.info("/**************主动更新pdd订单：开始更新数据库：" + refund.getAftersaleId() + "存在、更新****************/");
-                    kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,refund.getAftersaleId().toString())));
+//                    kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,refund.getAftersaleId().toString())));
                     hasExistOrder++;
                 } else if (result.getCode() == ResultVoEnum.SUCCESS.getIndex()) {
                     logger.info("/**************主动更新pdd订单：开始更新数据库：" + refund.getAftersaleId() + "不存在、新增****************/");
-                    kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,refund.getAftersaleId().toString())));
+//                    kafkaTemplate.send(MqType.REFUND_MQ, JSONObject.toJSONString(MqMessage.build(EnumShopType.DOU, MqType.REFUND_MESSAGE,refund.getAftersaleId().toString())));
                     insertSuccess++;
                 } else {
                     logger.info("/**************主动更新pdd订单：开始更新数据库：" + refund.getAftersaleId() + "报错****************/");
