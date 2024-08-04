@@ -49,7 +49,7 @@ spring:
     password: Andy_123
 
 server:
-  port: 8083
+  port: 8091
 
 eureka:
   client:

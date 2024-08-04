@@ -24,6 +24,7 @@
         <module>eureka-server</module>
         <module>offline-api</module>
         <module>gateway</module>
+        <module>scm-api</module>
     </modules>
 
     <properties>
