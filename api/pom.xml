@@ -8,11 +8,17 @@
         <relativePath/>
     </parent>
     <artifactId>api</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <version>2.0.0</version>
     <name>api</name>
     <url>http://maven.apache.org</url>
-
+    <modules>
+        <module>auth-api</module>
+        <module>offline-api</module>
+        <module>oms-api</module>
+        <module>scm-api</module>
+        <module>wms-api</module>
+    </modules>
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

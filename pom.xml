@@ -16,18 +16,11 @@
     <name>qihangec-cloud</name>
     <url>http://maven.apache.org</url>
     <modules>
-
-        <module>common</module>
-        <!--    <module>api</module>-->
-        <module>security</module>
-        <module>auth-api</module>
-        <module>oms-api</module>
+        <module>api</module>
         <module>open-api</module>
         <module>eureka-server</module>
-        <module>offline-api</module>
         <module>gateway</module>
-        <module>scm-api</module>
-        <module>wms-api</module>
+        <module>core</module>
     </modules>
 
     <properties>
