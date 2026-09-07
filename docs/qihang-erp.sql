@@ -14,6 +14,9 @@
  Date: 15/07/2026 15:21:31
 */
 
+CREATE DATABASE IF NOT EXISTS `qihang-erp` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `qihang-erp`;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -3848,7 +3851,8 @@ DROP TABLE IF EXISTS `erp_warehouse_stock_out`;
 -- Table structure for erp_warehouse_stock_out_item
 -- ----------------------------
 DROP TABLE IF EXISTS `erp_warehouse_stock_out_item`;
-----------------------
+
+-- ----------------------------
 -- Records of erp_warehouse_stock_out_item
 -- ----------------------------
 
