@@ -3,6 +3,7 @@ package cn.qihangerp.erp.controller.erp;
 import cn.qihangerp.common.*;
 import cn.qihangerp.model.entity.*;
 import cn.qihangerp.model.bo.GoodsAddBo;
+import cn.qihangerp.model.bo.GoodsSkuNewAddBo;
 import cn.qihangerp.model.query.GoodsQuery;
 import cn.qihangerp.model.query.GoodsSkuQuery;
 import cn.qihangerp.model.vo.GoodsSpecListVo;
@@ -133,6 +134,21 @@ public class GoodsController extends BaseController
         int result = goodsService.insertGoodsSku(goodsSku);
         if(result == -1) new AjaxResult(501,"商品编码已存在");
         return toAjax(1);
+    }
+
+    /**
+     * 添加商品sku
+     * @param goods
+     * @return
+     */
+    @PreAuthorize("@ss.hasPermi('goods:goods:add')")
+    @PostMapping("/addSku")
+    public AjaxResult addSku(@RequestBody GoodsSkuNewAddBo goods)
+    {
+        if(goods.getId()==null||goods.getId()<=0) return AjaxResult.error("缺少参数ID");
+        ResultVo<Long> resultVo = goodsService.insertGoodsSku(getUsername(), goods);
+        if(resultVo.getCode()!=0) return AjaxResult.error(resultVo.getMsg());
+        else return AjaxResult.success(resultVo.getData());
     }
 
     /**
