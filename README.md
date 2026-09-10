@@ -1,10 +1,6 @@
 ﻿# 启航电商ERP系统-电商企业数字化底座
 
 > 🛠️ **开发者？** → [**开发者快速上手指南**](https://qihangerp.cn/docs/quickstart.html?utm_source=erp)（环境配置、3步启动、常见报错速查、技术支持）
->
-> 🚀 **不想折腾环境？** 官方提供【一键运行包】——已打包完整环境（免装 Java/MySQL/Redis），下载即用！
->
-> 👉 前往官网下载：**[开源版一键演示包](https://qihangerp.cn/open/download.html?utm_source=erp)**（关注公众号获取下载权限）
 
 ## 🔗 相关链接
 
@@ -13,6 +9,7 @@
 | 🌐 官网           | [https://qihangerp.cn/?utm_source=erp](https://qihangerp.cn/?utm_source=erp)                       |
 | 📦 更多开源产品   | [https://qihangerp.cn/open/?utm_source=erp](https://qihangerp.cn/open/?utm_source=erp)             |
 | 💼 企业版 | [https://qihangerp.cn/enterprise/?utm_source=erp](https://qihangerp.cn/enterprise/?utm_source=erp) |
+| 💬 开源社区交流 | [https://qihangerp.cn/open/](https://qihangerp.cn/open/) |
 
 > **欢迎来到我们的开源项目！创新、协作、高质量的代码。您的Star🌟，是我们前进的动力！ 💪✨🏆**
 
@@ -476,12 +473,6 @@ graph TD
 
 
 ### 3、运行说明
-#### 3.0、不想手动部署？下载一键运行包（推荐）
-
-官网提供**已打包好的演示环境**（548MB，免装 Java 17 / MySQL 8 / Redis 7），下载后按包内说明即可运行：
-
-👉 **[开源版一键演示包下载](https://qihangerp.cn/open/download.html?utm_source=erp)**（关注公众号获取下载权限）
-
 #### 3.1、启动环境
 
 1. 启动MySQL 8
