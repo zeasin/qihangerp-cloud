@@ -1,15 +1,14 @@
 ﻿# 启航电商ERP系统-电商企业数字化底座
 
-> 🛠️ **开发者？** → [**开发者快速上手指南**](https://qihangerp.cn/docs/quickstart.html?utm_source=erp)（环境配置、3步启动、常见报错速查、技术支持）
+> 🛠️ **开发者？** → [**开发者快速上手指南**](https://qihangerp.cn/open/docs/quickstart.html?utm_source=erp)（环境配置、3步启动、常见报错速查、技术支持）
 
 ## 🔗 相关链接
 
-| 链接              | 地址                                                                 |
-|-------------------|----------------------------------------------------------------------|
-| 🌐 官网           | [https://qihangerp.cn/?utm_source=erp](https://qihangerp.cn/?utm_source=erp)                       |
-| 📦 更多开源产品   | [https://qihangerp.cn/open/?utm_source=erp](https://qihangerp.cn/open/?utm_source=erp)             |
-| 💼 企业版 | [https://qihangerp.cn/enterprise/?utm_source=erp](https://qihangerp.cn/enterprise/?utm_source=erp) |
-| 💬 开源社区交流 | [https://qihangerp.cn/open/](https://qihangerp.cn/open/) |
+| 链接            | 地址                                                                 |
+|-----------------|----------------------------------------------------------------------|
+| 🌐 官网         | [https://qihangerp.cn/?utm_source=erp](https://qihangerp.cn/?utm_source=erp)                       |
+| 💬 开源社区交流              | [https://qihangerp.cn/open/?utm_source=erp](https://qihangerp.cn/open/?utm_source=erp)             |
+| 💼 企业版       | [https://qihangerp.cn/enterprise/?utm_source=erp](https://qihangerp.cn/enterprise/?utm_source=erp) |
 
 > **欢迎来到我们的开源项目！创新、协作、高质量的代码。您的Star🌟，是我们前进的动力！ 💪✨🏆**
 
