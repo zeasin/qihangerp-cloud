@@ -6,9 +6,9 @@
 
 | 链接            | 地址                                                                 |
 |-----------------|----------------------------------------------------------------------|
-| 🌐 官网         | [https://qihangerp.cn/?utm_source=erp](https://qihangerp.cn/?utm_source=erp)                       |
-| 💬 开源社区交流              | [https://qihangerp.cn/open/?utm_source=erp](https://qihangerp.cn/open/?utm_source=erp)             |
-| 💼 企业版       | [https://qihangerp.cn/enterprise/?utm_source=erp](https://qihangerp.cn/enterprise/?utm_source=erp) |
+| 🌐 官网         | [https://qihangerp.cn/](https://qihangerp.cn/?utm_source=erp)                       |
+| 💬 开源社区交流              | [https://qihangerp.cn/open/](https://qihangerp.cn/open/?utm_source=erp)             |
+| 💼 企业版       | [https://qihangerp.cn/enterprise/](https://qihangerp.cn/enterprise/?utm_source=erp) |
 
 > **欢迎来到我们的开源项目！创新、协作、高质量的代码。您的Star🌟，是我们前进的动力！ 💪✨🏆**
 
@@ -120,7 +120,6 @@
 * **专属支持**：7x24小时技术支持服务
 * **更多功能**：多商户架构、多仓库支持、第三方API支持、三方云仓（如：京东云仓）支持、AI智能分析
 
-👉 **[企业版预约演示](https://qihangerp.cn/demo.html?utm_source=erp)**
 
 ---
 
